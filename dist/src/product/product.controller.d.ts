@@ -1,0 +1,141 @@
+import { ProductService } from './product.service';
+import { CreateProductDto } from './dto/create-product.dto';
+import { UpdateProductDto } from './dto/update-product.dto';
+import { ListProductsDto } from './dto/list-products.dto';
+export declare class ProductController {
+    private readonly productService;
+    constructor(productService: ProductService);
+    findAll(query: ListProductsDto): Promise<{
+        data: ({
+            category: {
+                id: string;
+                name: string;
+                slug: string;
+            };
+            images: {
+                path: string;
+                url: string;
+                id: string;
+                createdAt: Date;
+                productId: string;
+            }[];
+        } & {
+            id: string;
+            name: string;
+            createdAt: Date;
+            updatedAt: Date;
+            description: string;
+            categoryId: string;
+            price: import("@prisma/client-runtime-utils").Decimal;
+            quantity: number;
+            colors: string[];
+            isPopular: boolean;
+            isActive: boolean;
+        })[];
+        meta: {
+            total: number;
+            page: number;
+            limit: number;
+            totalPages: number;
+        };
+    }>;
+    findOne(id: string): Promise<{
+        category: {
+            id: string;
+            name: string;
+            createdAt: Date;
+            slug: string;
+        };
+        images: {
+            path: string;
+            url: string;
+            id: string;
+            createdAt: Date;
+            productId: string;
+        }[];
+    } & {
+        id: string;
+        name: string;
+        createdAt: Date;
+        updatedAt: Date;
+        description: string;
+        categoryId: string;
+        price: import("@prisma/client-runtime-utils").Decimal;
+        quantity: number;
+        colors: string[];
+        isPopular: boolean;
+        isActive: boolean;
+    }>;
+    create(createProductDto: CreateProductDto, files?: Express.Multer.File[]): Promise<{
+        category: {
+            id: string;
+            name: string;
+            createdAt: Date;
+            slug: string;
+        };
+        images: {
+            path: string;
+            url: string;
+            id: string;
+            createdAt: Date;
+            productId: string;
+        }[];
+    } & {
+        id: string;
+        name: string;
+        createdAt: Date;
+        updatedAt: Date;
+        description: string;
+        categoryId: string;
+        price: import("@prisma/client-runtime-utils").Decimal;
+        quantity: number;
+        colors: string[];
+        isPopular: boolean;
+        isActive: boolean;
+    }>;
+    update(id: string, updateProductDto: UpdateProductDto): Promise<{
+        category: {
+            id: string;
+            name: string;
+            createdAt: Date;
+            slug: string;
+        };
+        images: {
+            path: string;
+            url: string;
+            id: string;
+            createdAt: Date;
+            productId: string;
+        }[];
+    } & {
+        id: string;
+        name: string;
+        createdAt: Date;
+        updatedAt: Date;
+        description: string;
+        categoryId: string;
+        price: import("@prisma/client-runtime-utils").Decimal;
+        quantity: number;
+        colors: string[];
+        isPopular: boolean;
+        isActive: boolean;
+    }>;
+    addImages(id: string, files: Express.Multer.File[]): Promise<any[]>;
+    removeImage(productId: string, imageId: string): Promise<{
+        success: boolean;
+        message: string;
+    }>;
+    remove(id: string): Promise<{
+        id: string;
+        name: string;
+        createdAt: Date;
+        updatedAt: Date;
+        description: string;
+        categoryId: string;
+        price: import("@prisma/client-runtime-utils").Decimal;
+        quantity: number;
+        colors: string[];
+        isPopular: boolean;
+        isActive: boolean;
+    }>;
+}
