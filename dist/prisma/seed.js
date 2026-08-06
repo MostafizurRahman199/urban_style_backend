@@ -66,6 +66,31 @@ async function main() {
     else {
         console.log('Admin user already exists.');
     }
+    const requestedAdminEmail = 'urbanstyle@gmail.com';
+    const existingRequestedAdmin = await prisma.admin.findUnique({
+        where: { email: requestedAdminEmail },
+    });
+    if (!existingRequestedAdmin) {
+        const requestedPasswordHash = await bcrypt.hash('urbanstyle_bangladesh_2026', 10);
+        await prisma.admin.create({
+            data: {
+                name: 'Urban Style Admin',
+                email: requestedAdminEmail,
+                password: requestedPasswordHash,
+            },
+        });
+        console.log('Requested Admin user created successfully: email: urbanstyle@gmail.com');
+    }
+    else {
+        const requestedPasswordHash = await bcrypt.hash('urbanstyle_bangladesh_2026', 10);
+        await prisma.admin.update({
+            where: { email: requestedAdminEmail },
+            data: {
+                password: requestedPasswordHash,
+            },
+        });
+        console.log('Requested Admin user password updated successfully.');
+    }
     await prisma.$disconnect();
     await pool.end();
 }
