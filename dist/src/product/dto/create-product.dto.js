@@ -16,7 +16,9 @@ const class_validator_1 = require("class-validator");
 class CreateProductDto {
     name;
     description;
+    videoUrl;
     price;
+    discountPrice;
     quantity;
     colors;
     isPopular;
@@ -38,12 +40,30 @@ __decorate([
     __metadata("design:type", String)
 ], CreateProductDto.prototype, "description", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ example: 'https://youtube.com/watch?v=...', description: 'Youtube video URL', required: false }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateProductDto.prototype, "videoUrl", void 0);
+__decorate([
     (0, swagger_1.ApiProperty)({ example: 49.99, description: 'Product price' }),
     (0, class_transformer_1.Transform)(({ value }) => parseFloat(value)),
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0),
     __metadata("design:type", Number)
 ], CreateProductDto.prototype, "price", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 39.99, description: 'Discount price', required: false }),
+    (0, class_transformer_1.Transform)(({ value }) => {
+        if (value === null || value === 'null' || value === '' || value === undefined)
+            return null;
+        const parsed = parseFloat(value);
+        return isNaN(parsed) ? null : parsed;
+    }),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Object)
+], CreateProductDto.prototype, "discountPrice", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ example: 100, description: 'Stock quantity' }),
     (0, class_transformer_1.Transform)(({ value }) => parseInt(value, 10)),

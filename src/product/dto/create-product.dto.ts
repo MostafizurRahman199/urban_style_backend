@@ -13,11 +13,26 @@ export class CreateProductDto {
   @IsNotEmpty()
   description: string;
 
+  @ApiProperty({ example: 'https://youtube.com/watch?v=...', description: 'Youtube video URL', required: false })
+  @IsString()
+  @IsOptional()
+  videoUrl?: string;
+
   @ApiProperty({ example: 49.99, description: 'Product price' })
   @Transform(({ value }) => parseFloat(value))
   @IsNumber()
   @Min(0)
   price: number;
+
+  @ApiProperty({ example: 39.99, description: 'Discount price', required: false })
+  @Transform(({ value }) => {
+    if (value === null || value === 'null' || value === '' || value === undefined) return null;
+    const parsed = parseFloat(value);
+    return isNaN(parsed) ? null : parsed;
+  })
+  @IsNumber()
+  @IsOptional()
+  discountPrice?: number | null;
 
   @ApiProperty({ example: 100, description: 'Stock quantity' })
   @Transform(({ value }) => parseInt(value, 10))

@@ -48,10 +48,12 @@ model Product {
   name        String
   description String
   price       Decimal        @db.Decimal(10, 2)
+  discountPrice Decimal?     @db.Decimal(10, 2)
   quantity    Int            @default(0) // stock
   colors      String[]       @default([]) // e.g. ["Red", "Blue"]
   isPopular   Boolean        @default(false)
   isActive    Boolean        @default(true) // soft "unpublish" toggle
+  videoUrl    String?        // optional youtube video link
   categoryId  String
   category    Category       @relation(fields: [categoryId], references: [id])
   images      ProductImage[]
