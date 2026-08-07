@@ -8,50 +8,50 @@ export declare class BannerController {
         id: string;
         createdAt: Date;
         description: string | null;
-        isActive: boolean;
         title: string | null;
+        isActive: boolean;
+        sortOrder: number;
         imageUrl: string;
         imagePath: string;
-        sortOrder: number;
     }[]>;
     findAll(): Promise<{
         id: string;
         createdAt: Date;
         description: string | null;
-        isActive: boolean;
         title: string | null;
+        isActive: boolean;
+        sortOrder: number;
         imageUrl: string;
         imagePath: string;
-        sortOrder: number;
     }[]>;
     create(createBannerDto: CreateBannerDto, file: Express.Multer.File): Promise<{
         id: string;
         createdAt: Date;
         description: string | null;
-        isActive: boolean;
         title: string | null;
+        isActive: boolean;
+        sortOrder: number;
         imageUrl: string;
         imagePath: string;
-        sortOrder: number;
     }>;
     update(id: string, updateBannerDto: UpdateBannerDto, file?: Express.Multer.File): Promise<{
         id: string;
         createdAt: Date;
         description: string | null;
-        isActive: boolean;
         title: string | null;
+        isActive: boolean;
+        sortOrder: number;
         imageUrl: string;
         imagePath: string;
-        sortOrder: number;
     }>;
     remove(id: string): Promise<{
         id: string;
         createdAt: Date;
         description: string | null;
-        isActive: boolean;
         title: string | null;
+        isActive: boolean;
+        sortOrder: number;
         imageUrl: string;
         imagePath: string;
-        sortOrder: number;
     }>;
 }

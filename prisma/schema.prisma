@@ -5,7 +5,7 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
+  provider = "postgresql"
 }
 
 enum OrderStatus {
@@ -28,7 +28,7 @@ model Admin {
   id        String   @id @default(uuid())
   name      String
   email     String   @unique
-  password  String   // bcrypt hash
+  password  String // bcrypt hash
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -37,34 +37,34 @@ model Category {
   id        String    @id @default(uuid())
   name      String    @unique
   slug      String    @unique
-  iconUrl   String?   // Category icon/image public URL
-  iconPath  String?   // Category icon/image storage path (for deletion)
+  iconUrl   String? // Category icon/image public URL
+  iconPath  String? // Category icon/image storage path (for deletion)
   products  Product[]
   createdAt DateTime  @default(now())
 }
 
 model Product {
-  id          String        @id @default(uuid())
+  id          String         @id @default(uuid())
   name        String
   description String
-  price       Decimal       @db.Decimal(10, 2)
-  quantity    Int           @default(0)   // stock
-  colors      String[]      @default([])  // e.g. ["Red", "Blue"]
-  isPopular   Boolean       @default(false)
-  isActive    Boolean       @default(true) // soft "unpublish" toggle
+  price       Decimal        @db.Decimal(10, 2)
+  quantity    Int            @default(0) // stock
+  colors      String[]       @default([]) // e.g. ["Red", "Blue"]
+  isPopular   Boolean        @default(false)
+  isActive    Boolean        @default(true) // soft "unpublish" toggle
   categoryId  String
-  category    Category      @relation(fields: [categoryId], references: [id])
+  category    Category       @relation(fields: [categoryId], references: [id])
   images      ProductImage[]
   orderItems  OrderItem[]
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
 }
 
 model ProductImage {
   id        String   @id @default(uuid())
-  url       String   // Supabase Storage public URL
-  path      String   // storage path, needed to delete the file later
-  color     String?  // Associated color (optional)
+  url       String // Supabase Storage public URL
+  path      String // storage path, needed to delete the file later
+  color     String? // Associated color (optional)
   productId String
   product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
@@ -96,14 +96,14 @@ model Order {
 }
 
 model OrderItem {
-  id        String   @id @default(uuid())
+  id        String  @id @default(uuid())
   orderId   String
-  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
   productId String
-  product   Product  @relation(fields: [productId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
   quantity  Int
-  price     Decimal  @db.Decimal(10, 2) // price at time of order (snapshot)
-  color     String?  // chosen color, if applicable
+  price     Decimal @db.Decimal(10, 2) // price at time of order (snapshot)
+  color     String? // chosen color, if applicable
 }
 
 model ContactMessage {
@@ -114,4 +114,3 @@ model ContactMessage {
   message       String
   createdAt     DateTime @default(now())
 }
-

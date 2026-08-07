@@ -9,8 +9,8 @@ export declare class ProductService {
     constructor(prisma: PrismaService, uploadService: UploadService);
     create(createProductDto: CreateProductDto, files?: Express.Multer.File[]): Promise<{
         category: {
-            id: string;
             name: string;
+            id: string;
             createdAt: Date;
             slug: string;
             iconUrl: string | null;
@@ -25,23 +25,24 @@ export declare class ProductService {
             productId: string;
         }[];
     } & {
-        id: string;
-        name: string;
-        createdAt: Date;
-        updatedAt: Date;
         description: string;
-        categoryId: string;
+        name: string;
         price: import("@prisma/client-runtime-utils").Decimal;
         quantity: number;
         colors: string[];
         isPopular: boolean;
         isActive: boolean;
+        categoryId: string;
+        id: string;
+        discountPrice: import("@prisma/client-runtime-utils").Decimal | null;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     findAll(query: ListProductsDto): Promise<{
         data: ({
             category: {
-                id: string;
                 name: string;
+                id: string;
                 slug: string;
             };
             images: {
@@ -53,17 +54,18 @@ export declare class ProductService {
                 productId: string;
             }[];
         } & {
-            id: string;
-            name: string;
-            createdAt: Date;
-            updatedAt: Date;
             description: string;
-            categoryId: string;
+            name: string;
             price: import("@prisma/client-runtime-utils").Decimal;
             quantity: number;
             colors: string[];
             isPopular: boolean;
             isActive: boolean;
+            categoryId: string;
+            id: string;
+            discountPrice: import("@prisma/client-runtime-utils").Decimal | null;
+            createdAt: Date;
+            updatedAt: Date;
         })[];
         meta: {
             total: number;
@@ -74,8 +76,8 @@ export declare class ProductService {
     }>;
     findOne(id: string): Promise<{
         category: {
-            id: string;
             name: string;
+            id: string;
             createdAt: Date;
             slug: string;
             iconUrl: string | null;
@@ -90,22 +92,23 @@ export declare class ProductService {
             productId: string;
         }[];
     } & {
-        id: string;
-        name: string;
-        createdAt: Date;
-        updatedAt: Date;
         description: string;
-        categoryId: string;
+        name: string;
         price: import("@prisma/client-runtime-utils").Decimal;
         quantity: number;
         colors: string[];
         isPopular: boolean;
         isActive: boolean;
+        categoryId: string;
+        id: string;
+        discountPrice: import("@prisma/client-runtime-utils").Decimal | null;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     update(id: string, updateProductDto: UpdateProductDto): Promise<{
         category: {
-            id: string;
             name: string;
+            id: string;
             createdAt: Date;
             slug: string;
             iconUrl: string | null;
@@ -120,17 +123,18 @@ export declare class ProductService {
             productId: string;
         }[];
     } & {
-        id: string;
-        name: string;
-        createdAt: Date;
-        updatedAt: Date;
         description: string;
-        categoryId: string;
+        name: string;
         price: import("@prisma/client-runtime-utils").Decimal;
         quantity: number;
         colors: string[];
         isPopular: boolean;
         isActive: boolean;
+        categoryId: string;
+        id: string;
+        discountPrice: import("@prisma/client-runtime-utils").Decimal | null;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     addImages(id: string, files: Express.Multer.File[], imageColors?: string[]): Promise<any[]>;
     removeImage(productId: string, imageId: string): Promise<{
@@ -138,16 +142,17 @@ export declare class ProductService {
         message: string;
     }>;
     remove(id: string): Promise<{
-        id: string;
-        name: string;
-        createdAt: Date;
-        updatedAt: Date;
         description: string;
-        categoryId: string;
+        name: string;
         price: import("@prisma/client-runtime-utils").Decimal;
         quantity: number;
         colors: string[];
         isPopular: boolean;
         isActive: boolean;
+        categoryId: string;
+        id: string;
+        discountPrice: import("@prisma/client-runtime-utils").Decimal | null;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
 }
