@@ -19,6 +19,7 @@ class CreateOrderDto {
     contactNumber;
     address;
     message;
+    deliveryCharge;
     items;
 }
 exports.CreateOrderDto = CreateOrderDto;
@@ -46,6 +47,13 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateOrderDto.prototype, "message", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 60, description: 'Optional delivery charge (defaults to 0)', required: false }),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.Min)(0),
+    __metadata("design:type", Number)
+], CreateOrderDto.prototype, "deliveryCharge", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ type: [create_order_item_dto_1.CreateOrderItemDto], description: 'List of order items' }),
     (0, class_validator_1.IsArray)(),

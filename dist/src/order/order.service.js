@@ -19,7 +19,7 @@ let OrderService = class OrderService {
     }
     async create(createOrderDto) {
         return this.prisma.$transaction(async (tx) => {
-            let totalAmount = 0;
+            let itemsSubtotal = 0;
             const orderItemsData = [];
             for (const item of createOrderDto.items) {
                 const product = await tx.product.findUnique({
@@ -34,9 +34,11 @@ let OrderService = class OrderService {
                 if (product.quantity < item.quantity) {
                     throw new common_1.BadRequestException(`Insufficient stock for "${product.name}". Available: ${product.quantity}, requested: ${item.quantity}`);
                 }
-                const price = Number(product.price);
+                const price = product.discountPrice !== null && product.discountPrice !== undefined
+                    ? Number(product.discountPrice)
+                    : Number(product.price);
                 const itemTotal = price * item.quantity;
-                totalAmount += itemTotal;
+                itemsSubtotal += itemTotal;
                 await tx.product.update({
                     where: { id: product.id },
                     data: {
@@ -48,17 +50,20 @@ let OrderService = class OrderService {
                 orderItemsData.push({
                     productId: product.id,
                     quantity: item.quantity,
-                    price: product.price,
+                    price: price,
                     color: item.color || null,
                     size: item.size || null,
                 });
             }
+            const deliveryCharge = Number(createOrderDto.deliveryCharge || 0);
+            const totalAmount = itemsSubtotal + deliveryCharge;
             const order = await tx.order.create({
                 data: {
                     customerName: createOrderDto.customerName,
                     contactNumber: createOrderDto.contactNumber,
                     address: createOrderDto.address,
                     message: createOrderDto.message || null,
+                    deliveryCharge,
                     totalAmount,
                     items: {
                         create: orderItemsData,
@@ -175,6 +180,21 @@ let OrderService = class OrderService {
         return this.prisma.order.update({
             where: { id },
             data: { cidNumber },
+        });
+    }
+    async updateDeliveryCharge(id, deliveryCharge) {
+        const order = await this.findOne(id);
+        const itemsSubtotal = order.items.reduce((sum, item) => {
+            return sum + Number(item.price) * item.quantity;
+        }, 0);
+        const newDeliveryCharge = Number(deliveryCharge || 0);
+        const newTotalAmount = itemsSubtotal + newDeliveryCharge;
+        return this.prisma.order.update({
+            where: { id },
+            data: {
+                deliveryCharge: newDeliveryCharge,
+                totalAmount: newTotalAmount,
+            },
         });
     }
 };

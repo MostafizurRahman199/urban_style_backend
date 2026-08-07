@@ -4,5 +4,6 @@ export declare class CreateOrderDto {
     contactNumber: string;
     address: string;
     message?: string;
+    deliveryCharge?: number;
     items: CreateOrderItemDto[];
 }

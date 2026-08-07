@@ -10,7 +10,7 @@ export class OrderService {
 
   async create(createOrderDto: CreateOrderDto) {
     return this.prisma.$transaction(async (tx) => {
-      let totalAmount = 0;
+      let itemsSubtotal = 0;
       const orderItemsData: any[] = [];
 
       for (const item of createOrderDto.items) {
@@ -32,9 +32,11 @@ export class OrderService {
           );
         }
 
-        const price = Number(product.price);
+        const price = product.discountPrice !== null && product.discountPrice !== undefined
+          ? Number(product.discountPrice)
+          : Number(product.price);
         const itemTotal = price * item.quantity;
-        totalAmount += itemTotal;
+        itemsSubtotal += itemTotal;
 
         // Decrement stock
         await tx.product.update({
@@ -49,11 +51,14 @@ export class OrderService {
         orderItemsData.push({
           productId: product.id,
           quantity: item.quantity,
-          price: product.price,
+          price: price,
           color: item.color || null,
           size: item.size || null,
         });
       }
+
+      const deliveryCharge = Number(createOrderDto.deliveryCharge || 0);
+      const totalAmount = itemsSubtotal + deliveryCharge;
 
       const order = await tx.order.create({
         data: {
@@ -61,6 +66,7 @@ export class OrderService {
           contactNumber: createOrderDto.contactNumber,
           address: createOrderDto.address,
           message: createOrderDto.message || null,
+          deliveryCharge,
           totalAmount,
           items: {
             create: orderItemsData,
@@ -192,6 +198,25 @@ export class OrderService {
     return this.prisma.order.update({
       where: { id },
       data: { cidNumber },
+    });
+  }
+
+  async updateDeliveryCharge(id: string, deliveryCharge: number) {
+    const order = await this.findOne(id);
+
+    const itemsSubtotal = order.items.reduce((sum, item) => {
+      return sum + Number(item.price) * item.quantity;
+    }, 0);
+
+    const newDeliveryCharge = Number(deliveryCharge || 0);
+    const newTotalAmount = itemsSubtotal + newDeliveryCharge;
+
+    return this.prisma.order.update({
+      where: { id },
+      data: {
+        deliveryCharge: newDeliveryCharge,
+        totalAmount: newTotalAmount,
+      },
     });
   }
 }

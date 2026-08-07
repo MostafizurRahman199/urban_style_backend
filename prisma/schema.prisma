@@ -49,6 +49,7 @@ model Product {
   description String
   price       Decimal        @db.Decimal(10, 2)
   discountPrice Decimal?     @db.Decimal(10, 2)
+  deliveryCharge Decimal?    @default(0) @db.Decimal(10, 2)
   quantity    Int            @default(0) // stock
   colors      String[]       @default([]) // e.g. ["Red", "Blue"]
   sizes       String[]       @default([]) // e.g. ["S (28 inch)", "M (30 inch)"]
@@ -93,6 +94,7 @@ model Order {
   contactNumber String
   address       String
   message       String?
+  deliveryCharge Decimal      @default(0) @db.Decimal(10, 2)
   totalAmount   Decimal       @db.Decimal(10, 2)
   orderStatus   OrderStatus   @default(PENDING)
   paymentStatus PaymentStatus @default(UNPAID)

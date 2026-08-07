@@ -13,49 +13,49 @@ export declare class BannerService {
         id: string;
         createdAt: Date;
         description: string | null;
-        title: string | null;
         isActive: boolean;
-        sortOrder: number;
+        title: string | null;
         imageUrl: string;
         imagePath: string;
         mobileImageUrl: string | null;
         mobileImagePath: string | null;
+        sortOrder: number;
     }>;
     findActive(): Promise<{
         id: string;
         createdAt: Date;
         description: string | null;
-        title: string | null;
         isActive: boolean;
-        sortOrder: number;
+        title: string | null;
         imageUrl: string;
         imagePath: string;
         mobileImageUrl: string | null;
         mobileImagePath: string | null;
+        sortOrder: number;
     }[]>;
     findAll(): Promise<{
         id: string;
         createdAt: Date;
         description: string | null;
-        title: string | null;
         isActive: boolean;
-        sortOrder: number;
+        title: string | null;
         imageUrl: string;
         imagePath: string;
         mobileImageUrl: string | null;
         mobileImagePath: string | null;
+        sortOrder: number;
     }[]>;
     findOne(id: string): Promise<{
         id: string;
         createdAt: Date;
         description: string | null;
-        title: string | null;
         isActive: boolean;
-        sortOrder: number;
+        title: string | null;
         imageUrl: string;
         imagePath: string;
         mobileImageUrl: string | null;
         mobileImagePath: string | null;
+        sortOrder: number;
     }>;
     update(id: string, updateBannerDto: UpdateBannerDto, files?: {
         image?: Express.Multer.File[];
@@ -64,24 +64,24 @@ export declare class BannerService {
         id: string;
         createdAt: Date;
         description: string | null;
-        title: string | null;
         isActive: boolean;
-        sortOrder: number;
+        title: string | null;
         imageUrl: string;
         imagePath: string;
         mobileImageUrl: string | null;
         mobileImagePath: string | null;
+        sortOrder: number;
     }>;
     remove(id: string): Promise<{
         id: string;
         createdAt: Date;
         description: string | null;
-        title: string | null;
         isActive: boolean;
-        sortOrder: number;
+        title: string | null;
         imageUrl: string;
         imagePath: string;
         mobileImageUrl: string | null;
         mobileImagePath: string | null;
+        sortOrder: number;
     }>;
 }

@@ -6,6 +6,7 @@ import { ListOrdersDto } from './dto/list-orders.dto';
 import { UpdateOrderStatusDto } from './dto/update-order-status.dto';
 import { UpdatePaymentStatusDto } from './dto/update-payment-status.dto';
 import { UpdateCidDto } from './dto/update-cid.dto';
+import { UpdateDeliveryChargeDto } from './dto/update-delivery-charge.dto';
 import { Public } from '../common/decorators/public.decorator';
 import { Throttle, ThrottlerGuard } from '@nestjs/throttler';
 
@@ -72,5 +73,15 @@ export class OrderController {
   @ApiResponse({ status: 404, description: 'Order not found' })
   updateCid(@Param('id') id: string, @Body() updateCidDto: UpdateCidDto) {
     return this.orderService.updateCidNumber(id, updateCidDto.cidNumber);
+  }
+
+  @Patch(':id/delivery-charge')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Update order delivery charge (Admin only)' })
+  @ApiResponse({ status: 200, description: 'Delivery charge updated' })
+  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiResponse({ status: 404, description: 'Order not found' })
+  updateDeliveryCharge(@Param('id') id: string, @Body() updateDeliveryChargeDto: UpdateDeliveryChargeDto) {
+    return this.orderService.updateDeliveryCharge(id, updateDeliveryChargeDto.deliveryCharge);
   }
 }

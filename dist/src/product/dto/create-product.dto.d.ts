@@ -4,6 +4,7 @@ export declare class CreateProductDto {
     videoUrl?: string;
     price: number;
     discountPrice?: number | null;
+    deliveryCharge?: number;
     quantity: number;
     colors?: string[];
     sizes?: string[];

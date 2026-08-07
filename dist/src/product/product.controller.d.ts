@@ -13,28 +13,29 @@ export declare class ProductController {
                 slug: string;
             };
             images: {
-                path: string;
-                url: string;
                 id: string;
                 createdAt: Date;
+                url: string;
+                path: string;
                 color: string | null;
                 productId: string;
             }[];
         } & {
             id: string;
             name: string;
-            createdAt: Date;
-            updatedAt: Date;
             description: string;
-            categoryId: string;
-            videoUrl: string | null;
             price: import("@prisma/client-runtime-utils").Decimal;
             discountPrice: import("@prisma/client-runtime-utils").Decimal | null;
+            deliveryCharge: import("@prisma/client-runtime-utils").Decimal | null;
             quantity: number;
             colors: string[];
             sizes: string[];
             isPopular: boolean;
             isActive: boolean;
+            videoUrl: string | null;
+            createdAt: Date;
+            updatedAt: Date;
+            categoryId: string;
         })[];
         meta: {
             total: number;
@@ -53,28 +54,29 @@ export declare class ProductController {
             iconPath: string | null;
         };
         images: {
-            path: string;
-            url: string;
             id: string;
             createdAt: Date;
+            url: string;
+            path: string;
             color: string | null;
             productId: string;
         }[];
     } & {
         id: string;
         name: string;
-        createdAt: Date;
-        updatedAt: Date;
         description: string;
-        categoryId: string;
-        videoUrl: string | null;
         price: import("@prisma/client-runtime-utils").Decimal;
         discountPrice: import("@prisma/client-runtime-utils").Decimal | null;
+        deliveryCharge: import("@prisma/client-runtime-utils").Decimal | null;
         quantity: number;
         colors: string[];
         sizes: string[];
         isPopular: boolean;
         isActive: boolean;
+        videoUrl: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        categoryId: string;
     }>;
     create(createProductDto: CreateProductDto, files?: Express.Multer.File[]): Promise<{
         category: {
@@ -86,28 +88,29 @@ export declare class ProductController {
             iconPath: string | null;
         };
         images: {
-            path: string;
-            url: string;
             id: string;
             createdAt: Date;
+            url: string;
+            path: string;
             color: string | null;
             productId: string;
         }[];
     } & {
         id: string;
         name: string;
-        createdAt: Date;
-        updatedAt: Date;
         description: string;
-        categoryId: string;
-        videoUrl: string | null;
         price: import("@prisma/client-runtime-utils").Decimal;
         discountPrice: import("@prisma/client-runtime-utils").Decimal | null;
+        deliveryCharge: import("@prisma/client-runtime-utils").Decimal | null;
         quantity: number;
         colors: string[];
         sizes: string[];
         isPopular: boolean;
         isActive: boolean;
+        videoUrl: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        categoryId: string;
     }>;
     update(id: string, updateProductDto: UpdateProductDto): Promise<{
         category: {
@@ -119,28 +122,29 @@ export declare class ProductController {
             iconPath: string | null;
         };
         images: {
-            path: string;
-            url: string;
             id: string;
             createdAt: Date;
+            url: string;
+            path: string;
             color: string | null;
             productId: string;
         }[];
     } & {
         id: string;
         name: string;
-        createdAt: Date;
-        updatedAt: Date;
         description: string;
-        categoryId: string;
-        videoUrl: string | null;
         price: import("@prisma/client-runtime-utils").Decimal;
         discountPrice: import("@prisma/client-runtime-utils").Decimal | null;
+        deliveryCharge: import("@prisma/client-runtime-utils").Decimal | null;
         quantity: number;
         colors: string[];
         sizes: string[];
         isPopular: boolean;
         isActive: boolean;
+        videoUrl: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        categoryId: string;
     }>;
     addImages(id: string, files: Express.Multer.File[], imageColors?: string | string[]): Promise<any[]>;
     removeImage(productId: string, imageId: string): Promise<{
@@ -150,17 +154,18 @@ export declare class ProductController {
     remove(id: string): Promise<{
         id: string;
         name: string;
-        createdAt: Date;
-        updatedAt: Date;
         description: string;
-        categoryId: string;
-        videoUrl: string | null;
         price: import("@prisma/client-runtime-utils").Decimal;
         discountPrice: import("@prisma/client-runtime-utils").Decimal | null;
+        deliveryCharge: import("@prisma/client-runtime-utils").Decimal | null;
         quantity: number;
         colors: string[];
         sizes: string[];
         isPopular: boolean;
         isActive: boolean;
+        videoUrl: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+        categoryId: string;
     }>;
 }

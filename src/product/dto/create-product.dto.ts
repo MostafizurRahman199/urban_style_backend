@@ -34,6 +34,17 @@ export class CreateProductDto {
   @IsOptional()
   discountPrice?: number | null;
 
+  @ApiProperty({ example: 60.00, description: 'Delivery charge', required: false })
+  @Transform(({ value }) => {
+    if (value === null || value === 'null' || value === '' || value === undefined) return 0;
+    const parsed = parseFloat(value);
+    return isNaN(parsed) ? 0 : parsed;
+  })
+  @IsNumber()
+  @IsOptional()
+  @Min(0)
+  deliveryCharge?: number;
+
   @ApiProperty({ example: 100, description: 'Stock quantity' })
   @Transform(({ value }) => parseInt(value, 10))
   @IsNumber()
