@@ -17,6 +17,8 @@ class ListProductsDto {
     categoryId;
     isPopular;
     search;
+    minPrice;
+    maxPrice;
     page = 1;
     limit = 10;
 }
@@ -40,6 +42,22 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], ListProductsDto.prototype, "search", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Filter by minimum price', required: false }),
+    (0, class_transformer_1.Transform)(({ value }) => parseFloat(value)),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.Min)(0),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Number)
+], ListProductsDto.prototype, "minPrice", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Filter by maximum price', required: false }),
+    (0, class_transformer_1.Transform)(({ value }) => parseFloat(value)),
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.Min)(0),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Number)
+], ListProductsDto.prototype, "maxPrice", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ description: 'Page number (default: 1)', required: false, default: 1 }),
     (0, class_transformer_1.Transform)(({ value }) => parseInt(value, 10)),

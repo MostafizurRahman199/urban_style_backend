@@ -67,7 +67,7 @@ let ProductService = class ProductService {
         return this.findOne(product.id);
     }
     async findAll(query) {
-        const { categoryId, isPopular, search, page = 1, limit = 10 } = query;
+        const { categoryId, isPopular, search, minPrice, maxPrice, page = 1, limit = 10 } = query;
         const skip = (page - 1) * limit;
         const where = {};
         if (categoryId) {
@@ -81,6 +81,15 @@ let ProductService = class ProductService {
                 { name: { contains: search, mode: 'insensitive' } },
                 { description: { contains: search, mode: 'insensitive' } },
             ];
+        }
+        if (minPrice !== undefined || maxPrice !== undefined) {
+            where.price = {};
+            if (minPrice !== undefined && !isNaN(minPrice)) {
+                where.price.gte = minPrice;
+            }
+            if (maxPrice !== undefined && !isNaN(maxPrice)) {
+                where.price.lte = maxPrice;
+            }
         }
         const [total, data] = await Promise.all([
             this.prisma.product.count({ where }),
