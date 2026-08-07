@@ -16,4 +16,9 @@ export class CreateOrderItemDto {
   @IsString()
   @IsOptional()
   color?: string;
+
+  @ApiProperty({ example: 'M (30 inch)', description: 'Selected size option', required: false })
+  @IsString()
+  @IsOptional()
+  size?: string;
 }

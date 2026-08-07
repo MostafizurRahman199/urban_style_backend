@@ -50,6 +50,7 @@ let OrderService = class OrderService {
                     quantity: item.quantity,
                     price: product.price,
                     color: item.color || null,
+                    size: item.size || null,
                 });
             }
             const order = await tx.order.create({

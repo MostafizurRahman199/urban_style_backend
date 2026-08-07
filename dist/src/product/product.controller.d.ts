@@ -32,6 +32,7 @@ export declare class ProductController {
             discountPrice: import("@prisma/client-runtime-utils").Decimal | null;
             quantity: number;
             colors: string[];
+            sizes: string[];
             isPopular: boolean;
             isActive: boolean;
         })[];
@@ -71,6 +72,7 @@ export declare class ProductController {
         discountPrice: import("@prisma/client-runtime-utils").Decimal | null;
         quantity: number;
         colors: string[];
+        sizes: string[];
         isPopular: boolean;
         isActive: boolean;
     }>;
@@ -103,6 +105,7 @@ export declare class ProductController {
         discountPrice: import("@prisma/client-runtime-utils").Decimal | null;
         quantity: number;
         colors: string[];
+        sizes: string[];
         isPopular: boolean;
         isActive: boolean;
     }>;
@@ -135,6 +138,7 @@ export declare class ProductController {
         discountPrice: import("@prisma/client-runtime-utils").Decimal | null;
         quantity: number;
         colors: string[];
+        sizes: string[];
         isPopular: boolean;
         isActive: boolean;
     }>;
@@ -155,6 +159,7 @@ export declare class ProductController {
         discountPrice: import("@prisma/client-runtime-utils").Decimal | null;
         quantity: number;
         colors: string[];
+        sizes: string[];
         isPopular: boolean;
         isActive: boolean;
     }>;

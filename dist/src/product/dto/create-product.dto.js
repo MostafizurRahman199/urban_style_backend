@@ -21,6 +21,7 @@ class CreateProductDto {
     discountPrice;
     quantity;
     colors;
+    sizes;
     isPopular;
     isActive;
     categoryId;
@@ -89,6 +90,24 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Array)
 ], CreateProductDto.prototype, "colors", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: ['S (28 inch)', 'M (30 inch)'], description: 'Available sizes', required: false }),
+    (0, class_transformer_1.Transform)(({ value }) => {
+        if (typeof value === 'string') {
+            try {
+                return JSON.parse(value);
+            }
+            catch {
+                return value.split(',').map((s) => s.trim());
+            }
+        }
+        return value;
+    }),
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.IsString)({ each: true }),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Array)
+], CreateProductDto.prototype, "sizes", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ example: false, description: 'Is the product popular?', required: false }),
     (0, class_transformer_1.Transform)(({ value }) => value === 'true' || value === true),

@@ -16,6 +16,7 @@ class CreateOrderItemDto {
     productId;
     quantity;
     color;
+    size;
 }
 exports.CreateOrderItemDto = CreateOrderItemDto;
 __decorate([
@@ -36,4 +37,10 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], CreateOrderItemDto.prototype, "color", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: 'M (30 inch)', description: 'Selected size option', required: false }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], CreateOrderItemDto.prototype, "size", void 0);
 //# sourceMappingURL=create-order-item.dto.js.map

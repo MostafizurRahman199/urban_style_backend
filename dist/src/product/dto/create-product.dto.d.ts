@@ -6,6 +6,7 @@ export declare class CreateProductDto {
     discountPrice?: number | null;
     quantity: number;
     colors?: string[];
+    sizes?: string[];
     isPopular?: boolean;
     isActive?: boolean;
     categoryId: string;

@@ -56,6 +56,22 @@ export class CreateProductDto {
   @IsOptional()
   colors?: string[];
 
+  @ApiProperty({ example: ['S (28 inch)', 'M (30 inch)'], description: 'Available sizes', required: false })
+  @Transform(({ value }) => {
+    if (typeof value === 'string') {
+      try {
+        return JSON.parse(value);
+      } catch {
+        return value.split(',').map((s: string) => s.trim());
+      }
+    }
+    return value;
+  })
+  @IsArray()
+  @IsString({ each: true })
+  @IsOptional()
+  sizes?: string[];
+
   @ApiProperty({ example: false, description: 'Is the product popular?', required: false })
   @Transform(({ value }) => value === 'true' || value === true)
   @IsBoolean()

@@ -19,6 +19,7 @@ export declare class OrderController {
             quantity: number;
             color: string | null;
             productId: string;
+            size: string | null;
             orderId: string;
         })[];
     } & {
@@ -47,6 +48,7 @@ export declare class OrderController {
                 quantity: number;
                 color: string | null;
                 productId: string;
+                size: string | null;
                 orderId: string;
             })[];
         } & {
@@ -83,6 +85,7 @@ export declare class OrderController {
                 discountPrice: import("@prisma/client-runtime-utils").Decimal | null;
                 quantity: number;
                 colors: string[];
+                sizes: string[];
                 isPopular: boolean;
                 isActive: boolean;
             };
@@ -92,6 +95,7 @@ export declare class OrderController {
             quantity: number;
             color: string | null;
             productId: string;
+            size: string | null;
             orderId: string;
         })[];
     } & {
