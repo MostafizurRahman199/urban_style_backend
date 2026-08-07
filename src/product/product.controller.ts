@@ -131,8 +131,24 @@ export class ProductController {
       }),
     )
     files: Express.Multer.File[],
+    @Body('imageColors') imageColors?: string | string[],
   ) {
-    return this.productService.addImages(id, files);
+    let colorsArray: string[] = [];
+    if (imageColors) {
+      if (typeof imageColors === 'string') {
+        try {
+          colorsArray = JSON.parse(imageColors);
+          if (!Array.isArray(colorsArray)) {
+            colorsArray = [imageColors];
+          }
+        } catch {
+          colorsArray = [imageColors];
+        }
+      } else if (Array.isArray(imageColors)) {
+        colorsArray = imageColors;
+      }
+    }
+    return this.productService.addImages(id, files, colorsArray);
   }
 
   @Delete(':id/images/:imageId')

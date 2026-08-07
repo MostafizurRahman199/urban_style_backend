@@ -38,8 +38,25 @@ let ProductController = class ProductController {
     update(id, updateProductDto) {
         return this.productService.update(id, updateProductDto);
     }
-    addImages(id, files) {
-        return this.productService.addImages(id, files);
+    addImages(id, files, imageColors) {
+        let colorsArray = [];
+        if (imageColors) {
+            if (typeof imageColors === 'string') {
+                try {
+                    colorsArray = JSON.parse(imageColors);
+                    if (!Array.isArray(colorsArray)) {
+                        colorsArray = [imageColors];
+                    }
+                }
+                catch {
+                    colorsArray = [imageColors];
+                }
+            }
+            else if (Array.isArray(imageColors)) {
+                colorsArray = imageColors;
+            }
+        }
+        return this.productService.addImages(id, files, colorsArray);
     }
     removeImage(productId, imageId) {
         return this.productService.removeImage(productId, imageId);
@@ -154,8 +171,9 @@ __decorate([
             new common_1.FileTypeValidator({ fileType: 'image/(jpeg|png|webp)' }),
         ],
     }))),
+    __param(2, (0, common_1.Body)('imageColors')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, Array]),
+    __metadata("design:paramtypes", [String, Array, Object]),
     __metadata("design:returntype", void 0)
 ], ProductController.prototype, "addImages", null);
 __decorate([

@@ -40,7 +40,10 @@ let ProductService = class ProductService {
             },
         });
         if (files && files.length > 0) {
-            for (const file of files) {
+            const imageColors = createProductDto.imageColors || [];
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const color = imageColors[i] || null;
                 try {
                     const uploadResult = await this.uploadService.uploadFile(file, 'product-images', `products/${product.id}`);
                     await this.prisma.productImage.create({
@@ -48,6 +51,7 @@ let ProductService = class ProductService {
                             url: uploadResult.url,
                             path: uploadResult.path,
                             productId: product.id,
+                            color: color || null,
                         },
                     });
                 }
@@ -144,19 +148,22 @@ let ProductService = class ProductService {
             },
         });
     }
-    async addImages(id, files) {
+    async addImages(id, files, imageColors) {
         await this.findOne(id);
         if (!files || files.length === 0) {
             throw new common_1.BadRequestException('No images provided');
         }
         const uploadedImages = [];
-        for (const file of files) {
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const color = imageColors?.[i] || null;
             const uploadResult = await this.uploadService.uploadFile(file, 'product-images', `products/${id}`);
             const img = await this.prisma.productImage.create({
                 data: {
                     url: uploadResult.url,
                     path: uploadResult.path,
                     productId: id,
+                    color: color || null,
                 },
             });
             uploadedImages.push(img);

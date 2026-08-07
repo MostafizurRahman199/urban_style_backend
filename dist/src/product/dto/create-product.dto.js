@@ -22,6 +22,7 @@ class CreateProductDto {
     isPopular;
     isActive;
     categoryId;
+    imageColors;
 }
 exports.CreateProductDto = CreateProductDto;
 __decorate([
@@ -88,4 +89,22 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], CreateProductDto.prototype, "categoryId", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: ['Red', 'Blue'], description: 'Image colors mapped to uploaded images by index', required: false }),
+    (0, class_transformer_1.Transform)(({ value }) => {
+        if (typeof value === 'string') {
+            try {
+                return JSON.parse(value);
+            }
+            catch {
+                return [value];
+            }
+        }
+        return value;
+    }),
+    (0, class_validator_1.IsArray)(),
+    (0, class_validator_1.IsString)({ each: true }),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Array)
+], CreateProductDto.prototype, "imageColors", void 0);
 //# sourceMappingURL=create-product.dto.js.map

@@ -57,4 +57,20 @@ export class CreateProductDto {
   @IsString()
   @IsNotEmpty()
   categoryId: string;
+
+  @ApiProperty({ example: ['Red', 'Blue'], description: 'Image colors mapped to uploaded images by index', required: false })
+  @Transform(({ value }) => {
+    if (typeof value === 'string') {
+      try {
+        return JSON.parse(value);
+      } catch {
+        return [value];
+      }
+    }
+    return value;
+  })
+  @IsArray()
+  @IsString({ each: true })
+  @IsOptional()
+  imageColors?: string[];
 }

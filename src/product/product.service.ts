@@ -34,7 +34,10 @@ export class ProductService {
     });
 
     if (files && files.length > 0) {
-      for (const file of files) {
+      const imageColors = createProductDto.imageColors || [];
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const color = imageColors[i] || null;
         try {
           const uploadResult = await this.uploadService.uploadFile(
             file,
@@ -46,6 +49,7 @@ export class ProductService {
               url: uploadResult.url,
               path: uploadResult.path,
               productId: product.id,
+              color: color || null,
             },
           });
         } catch (error) {
@@ -156,7 +160,7 @@ export class ProductService {
     });
   }
 
-  async addImages(id: string, files: Express.Multer.File[]) {
+  async addImages(id: string, files: Express.Multer.File[], imageColors?: string[]) {
     await this.findOne(id);
 
     if (!files || files.length === 0) {
@@ -164,7 +168,9 @@ export class ProductService {
     }
 
     const uploadedImages: any[] = [];
-    for (const file of files) {
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const color = imageColors?.[i] || null;
       const uploadResult = await this.uploadService.uploadFile(
         file,
         'product-images',
@@ -175,6 +181,7 @@ export class ProductService {
           url: uploadResult.url,
           path: uploadResult.path,
           productId: id,
+          color: color || null,
         },
       });
       uploadedImages.push(img);

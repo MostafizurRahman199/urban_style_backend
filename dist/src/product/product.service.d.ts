@@ -15,10 +15,11 @@ export declare class ProductService {
             slug: string;
         };
         images: {
-            path: string;
-            url: string;
             id: string;
             createdAt: Date;
+            url: string;
+            path: string;
+            color: string | null;
             productId: string;
         }[];
     } & {
@@ -42,10 +43,11 @@ export declare class ProductService {
                 slug: string;
             };
             images: {
-                path: string;
-                url: string;
                 id: string;
                 createdAt: Date;
+                url: string;
+                path: string;
+                color: string | null;
                 productId: string;
             }[];
         } & {
@@ -76,10 +78,11 @@ export declare class ProductService {
             slug: string;
         };
         images: {
-            path: string;
-            url: string;
             id: string;
             createdAt: Date;
+            url: string;
+            path: string;
+            color: string | null;
             productId: string;
         }[];
     } & {
@@ -103,10 +106,11 @@ export declare class ProductService {
             slug: string;
         };
         images: {
-            path: string;
-            url: string;
             id: string;
             createdAt: Date;
+            url: string;
+            path: string;
+            color: string | null;
             productId: string;
         }[];
     } & {
@@ -122,7 +126,7 @@ export declare class ProductService {
         isPopular: boolean;
         isActive: boolean;
     }>;
-    addImages(id: string, files: Express.Multer.File[]): Promise<any[]>;
+    addImages(id: string, files: Express.Multer.File[], imageColors?: string[]): Promise<any[]>;
     removeImage(productId: string, imageId: string): Promise<{
         success: boolean;
         message: string;

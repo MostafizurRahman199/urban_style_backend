@@ -10,60 +10,60 @@ export declare class BannerService {
         id: string;
         createdAt: Date;
         description: string | null;
-        title: string | null;
         isActive: boolean;
-        sortOrder: number;
+        title: string | null;
         imageUrl: string;
         imagePath: string;
+        sortOrder: number;
     }>;
     findActive(): Promise<{
         id: string;
         createdAt: Date;
         description: string | null;
-        title: string | null;
         isActive: boolean;
-        sortOrder: number;
+        title: string | null;
         imageUrl: string;
         imagePath: string;
+        sortOrder: number;
     }[]>;
     findAll(): Promise<{
         id: string;
         createdAt: Date;
         description: string | null;
-        title: string | null;
         isActive: boolean;
-        sortOrder: number;
+        title: string | null;
         imageUrl: string;
         imagePath: string;
+        sortOrder: number;
     }[]>;
     findOne(id: string): Promise<{
         id: string;
         createdAt: Date;
         description: string | null;
-        title: string | null;
         isActive: boolean;
-        sortOrder: number;
+        title: string | null;
         imageUrl: string;
         imagePath: string;
+        sortOrder: number;
     }>;
     update(id: string, updateBannerDto: UpdateBannerDto, file?: Express.Multer.File): Promise<{
         id: string;
         createdAt: Date;
         description: string | null;
-        title: string | null;
         isActive: boolean;
-        sortOrder: number;
+        title: string | null;
         imageUrl: string;
         imagePath: string;
+        sortOrder: number;
     }>;
     remove(id: string): Promise<{
         id: string;
         createdAt: Date;
         description: string | null;
-        title: string | null;
         isActive: boolean;
-        sortOrder: number;
+        title: string | null;
         imageUrl: string;
         imagePath: string;
+        sortOrder: number;
     }>;
 }

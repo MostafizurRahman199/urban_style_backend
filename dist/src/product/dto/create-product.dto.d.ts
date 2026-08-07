@@ -7,4 +7,5 @@ export declare class CreateProductDto {
     isPopular?: boolean;
     isActive?: boolean;
     categoryId: string;
+    imageColors?: string[];
 }
