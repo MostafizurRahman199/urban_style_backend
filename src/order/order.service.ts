@@ -100,6 +100,7 @@ export class OrderService {
     if (search) {
       where.OR = [
         { id: { contains: search, mode: 'insensitive' } },
+        { cidNumber: { contains: search, mode: 'insensitive' } },
         { customerName: { contains: search, mode: 'insensitive' } },
         { contactNumber: { contains: search, mode: 'insensitive' } },
       ];
@@ -182,6 +183,14 @@ export class OrderService {
     return this.prisma.order.update({
       where: { id },
       data: { paymentStatus: status },
+    });
+  }
+
+  async updateCidNumber(id: string, cidNumber: string) {
+    await this.findOne(id);
+    return this.prisma.order.update({
+      where: { id },
+      data: { cidNumber },
     });
   }
 }

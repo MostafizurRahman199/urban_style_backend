@@ -20,6 +20,7 @@ const create_order_dto_1 = require("./dto/create-order.dto");
 const list_orders_dto_1 = require("./dto/list-orders.dto");
 const update_order_status_dto_1 = require("./dto/update-order-status.dto");
 const update_payment_status_dto_1 = require("./dto/update-payment-status.dto");
+const update_cid_dto_1 = require("./dto/update-cid.dto");
 const public_decorator_1 = require("../common/decorators/public.decorator");
 const throttler_1 = require("@nestjs/throttler");
 let OrderController = class OrderController {
@@ -41,6 +42,9 @@ let OrderController = class OrderController {
     }
     updatePayment(id, updatePaymentStatusDto) {
         return this.orderService.updatePaymentStatus(id, updatePaymentStatusDto.status);
+    }
+    updateCid(id, updateCidDto) {
+        return this.orderService.updateCidNumber(id, updateCidDto.cidNumber);
     }
 };
 exports.OrderController = OrderController;
@@ -106,6 +110,19 @@ __decorate([
     __metadata("design:paramtypes", [String, update_payment_status_dto_1.UpdatePaymentStatusDto]),
     __metadata("design:returntype", void 0)
 ], OrderController.prototype, "updatePayment", null);
+__decorate([
+    (0, common_1.Patch)(':id/cid'),
+    (0, swagger_1.ApiBearerAuth)(),
+    (0, swagger_1.ApiOperation)({ summary: 'Update order CID Number (Admin only)' }),
+    (0, swagger_1.ApiResponse)({ status: 200, description: 'CID Number updated' }),
+    (0, swagger_1.ApiResponse)({ status: 401, description: 'Unauthorized' }),
+    (0, swagger_1.ApiResponse)({ status: 404, description: 'Order not found' }),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, update_cid_dto_1.UpdateCidDto]),
+    __metadata("design:returntype", void 0)
+], OrderController.prototype, "updateCid", null);
 exports.OrderController = OrderController = __decorate([
     (0, swagger_1.ApiTags)('Orders'),
     (0, common_1.Controller)('orders'),

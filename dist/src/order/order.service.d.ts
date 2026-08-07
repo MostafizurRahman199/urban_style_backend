@@ -29,6 +29,7 @@ export declare class OrderService {
         message: string | null;
         orderStatus: import("@prisma/client").$Enums.OrderStatus;
         paymentStatus: import("@prisma/client").$Enums.PaymentStatus;
+        cidNumber: string | null;
         totalAmount: import("@prisma/client-runtime-utils").Decimal;
     }>;
     findAll(query: ListOrdersDto): Promise<{
@@ -56,6 +57,7 @@ export declare class OrderService {
             message: string | null;
             orderStatus: import("@prisma/client").$Enums.OrderStatus;
             paymentStatus: import("@prisma/client").$Enums.PaymentStatus;
+            cidNumber: string | null;
             totalAmount: import("@prisma/client-runtime-utils").Decimal;
         })[];
         meta: {
@@ -100,6 +102,7 @@ export declare class OrderService {
         message: string | null;
         orderStatus: import("@prisma/client").$Enums.OrderStatus;
         paymentStatus: import("@prisma/client").$Enums.PaymentStatus;
+        cidNumber: string | null;
         totalAmount: import("@prisma/client-runtime-utils").Decimal;
     }>;
     updateOrderStatus(id: string, status: OrderStatus): Promise<{
@@ -112,6 +115,7 @@ export declare class OrderService {
         message: string | null;
         orderStatus: import("@prisma/client").$Enums.OrderStatus;
         paymentStatus: import("@prisma/client").$Enums.PaymentStatus;
+        cidNumber: string | null;
         totalAmount: import("@prisma/client-runtime-utils").Decimal;
     }>;
     updatePaymentStatus(id: string, status: PaymentStatus): Promise<{
@@ -124,6 +128,20 @@ export declare class OrderService {
         message: string | null;
         orderStatus: import("@prisma/client").$Enums.OrderStatus;
         paymentStatus: import("@prisma/client").$Enums.PaymentStatus;
+        cidNumber: string | null;
+        totalAmount: import("@prisma/client-runtime-utils").Decimal;
+    }>;
+    updateCidNumber(id: string, cidNumber: string): Promise<{
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        customerName: string;
+        contactNumber: string;
+        address: string;
+        message: string | null;
+        orderStatus: import("@prisma/client").$Enums.OrderStatus;
+        paymentStatus: import("@prisma/client").$Enums.PaymentStatus;
+        cidNumber: string | null;
         totalAmount: import("@prisma/client-runtime-utils").Decimal;
     }>;
 }

@@ -87,6 +87,7 @@ model Banner {
 
 model Order {
   id            String        @id @default(uuid())
+  cidNumber     String?
   customerName  String
   contactNumber String
   address       String

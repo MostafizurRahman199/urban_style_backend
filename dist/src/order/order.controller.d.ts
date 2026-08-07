@@ -3,6 +3,7 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { ListOrdersDto } from './dto/list-orders.dto';
 import { UpdateOrderStatusDto } from './dto/update-order-status.dto';
 import { UpdatePaymentStatusDto } from './dto/update-payment-status.dto';
+import { UpdateCidDto } from './dto/update-cid.dto';
 export declare class OrderController {
     private readonly orderService;
     constructor(orderService: OrderService);
@@ -30,6 +31,7 @@ export declare class OrderController {
         message: string | null;
         orderStatus: import("@prisma/client").$Enums.OrderStatus;
         paymentStatus: import("@prisma/client").$Enums.PaymentStatus;
+        cidNumber: string | null;
         totalAmount: import("@prisma/client-runtime-utils").Decimal;
     }>;
     findAll(query: ListOrdersDto): Promise<{
@@ -57,6 +59,7 @@ export declare class OrderController {
             message: string | null;
             orderStatus: import("@prisma/client").$Enums.OrderStatus;
             paymentStatus: import("@prisma/client").$Enums.PaymentStatus;
+            cidNumber: string | null;
             totalAmount: import("@prisma/client-runtime-utils").Decimal;
         })[];
         meta: {
@@ -101,6 +104,7 @@ export declare class OrderController {
         message: string | null;
         orderStatus: import("@prisma/client").$Enums.OrderStatus;
         paymentStatus: import("@prisma/client").$Enums.PaymentStatus;
+        cidNumber: string | null;
         totalAmount: import("@prisma/client-runtime-utils").Decimal;
     }>;
     updateStatus(id: string, updateOrderStatusDto: UpdateOrderStatusDto): Promise<{
@@ -113,6 +117,7 @@ export declare class OrderController {
         message: string | null;
         orderStatus: import("@prisma/client").$Enums.OrderStatus;
         paymentStatus: import("@prisma/client").$Enums.PaymentStatus;
+        cidNumber: string | null;
         totalAmount: import("@prisma/client-runtime-utils").Decimal;
     }>;
     updatePayment(id: string, updatePaymentStatusDto: UpdatePaymentStatusDto): Promise<{
@@ -125,6 +130,20 @@ export declare class OrderController {
         message: string | null;
         orderStatus: import("@prisma/client").$Enums.OrderStatus;
         paymentStatus: import("@prisma/client").$Enums.PaymentStatus;
+        cidNumber: string | null;
+        totalAmount: import("@prisma/client-runtime-utils").Decimal;
+    }>;
+    updateCid(id: string, updateCidDto: UpdateCidDto): Promise<{
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        customerName: string;
+        contactNumber: string;
+        address: string;
+        message: string | null;
+        orderStatus: import("@prisma/client").$Enums.OrderStatus;
+        paymentStatus: import("@prisma/client").$Enums.PaymentStatus;
+        cidNumber: string | null;
         totalAmount: import("@prisma/client-runtime-utils").Decimal;
     }>;
 }
