@@ -18,6 +18,7 @@ const product_module_1 = require("./product/product.module");
 const banner_module_1 = require("./banner/banner.module");
 const order_module_1 = require("./order/order.module");
 const analytics_module_1 = require("./analytics/analytics.module");
+const message_module_1 = require("./message/message.module");
 const jwt_auth_guard_1 = require("./common/guards/jwt-auth.guard");
 let AppModule = class AppModule {
 };
@@ -37,6 +38,7 @@ exports.AppModule = AppModule = __decorate([
             banner_module_1.BannerModule,
             order_module_1.OrderModule,
             analytics_module_1.AnalyticsModule,
+            message_module_1.MessageModule,
         ],
         providers: [
             {

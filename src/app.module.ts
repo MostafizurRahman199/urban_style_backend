@@ -9,6 +9,7 @@ import { ProductModule } from './product/product.module';
 import { BannerModule } from './banner/banner.module';
 import { OrderModule } from './order/order.module';
 import { AnalyticsModule } from './analytics/analytics.module';
+import { MessageModule } from './message/message.module';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 
 @Module({
@@ -25,6 +26,7 @@ import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
     BannerModule,
     OrderModule,
     AnalyticsModule,
+    MessageModule,
   ],
   providers: [
     {

@@ -10,41 +10,41 @@ export declare class CategoryService {
     create(createCategoryDto: CreateCategoryDto, file?: Express.Multer.File): Promise<{
         id: string;
         name: string;
+        createdAt: Date;
         slug: string;
         iconUrl: string | null;
         iconPath: string | null;
-        createdAt: Date;
     }>;
     findAll(): Promise<{
         id: string;
         name: string;
+        createdAt: Date;
         slug: string;
         iconUrl: string | null;
         iconPath: string | null;
-        createdAt: Date;
     }[]>;
     findOne(id: string): Promise<{
         id: string;
         name: string;
+        createdAt: Date;
         slug: string;
         iconUrl: string | null;
         iconPath: string | null;
-        createdAt: Date;
     }>;
     update(id: string, updateCategoryDto: UpdateCategoryDto, file?: Express.Multer.File): Promise<{
         id: string;
         name: string;
+        createdAt: Date;
         slug: string;
         iconUrl: string | null;
         iconPath: string | null;
-        createdAt: Date;
     }>;
     remove(id: string): Promise<{
         id: string;
         name: string;
+        createdAt: Date;
         slug: string;
         iconUrl: string | null;
         iconPath: string | null;
-        createdAt: Date;
     }>;
 }

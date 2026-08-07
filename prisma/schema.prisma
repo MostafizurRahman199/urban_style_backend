@@ -105,3 +105,13 @@ model OrderItem {
   price     Decimal  @db.Decimal(10, 2) // price at time of order (snapshot)
   color     String?  // chosen color, if applicable
 }
+
+model ContactMessage {
+  id            String   @id @default(uuid())
+  name          String
+  email         String?
+  contactNumber String
+  message       String
+  createdAt     DateTime @default(now())
+}
+
