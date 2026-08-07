@@ -12,10 +12,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CategoryService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
+const upload_service_1 = require("../upload/upload.service");
 let CategoryService = class CategoryService {
     prisma;
-    constructor(prisma) {
+    uploadService;
+    constructor(prisma, uploadService) {
         this.prisma = prisma;
+        this.uploadService = uploadService;
     }
     generateSlug(name) {
         return name
@@ -24,7 +27,7 @@ let CategoryService = class CategoryService {
             .replace(/[^a-z0-9]+/g, '-')
             .replace(/(^-|-$)+/g, '');
     }
-    async create(createCategoryDto) {
+    async create(createCategoryDto, file) {
         const slug = createCategoryDto.slug
             ? this.generateSlug(createCategoryDto.slug)
             : this.generateSlug(createCategoryDto.name);
@@ -36,10 +39,19 @@ let CategoryService = class CategoryService {
         if (existing) {
             throw new common_1.ConflictException('Category with this name or slug already exists');
         }
+        let iconUrl = null;
+        let iconPath = null;
+        if (file) {
+            const uploadResult = await this.uploadService.uploadFile(file, 'category-icons', 'categories');
+            iconUrl = uploadResult.url;
+            iconPath = uploadResult.path;
+        }
         return this.prisma.category.create({
             data: {
                 name: createCategoryDto.name,
                 slug,
+                iconUrl,
+                iconPath,
             },
         });
     }
@@ -57,8 +69,8 @@ let CategoryService = class CategoryService {
         }
         return category;
     }
-    async update(id, updateCategoryDto) {
-        await this.findOne(id);
+    async update(id, updateCategoryDto, file) {
+        const category = await this.findOne(id);
         let slug = updateCategoryDto.slug;
         if (updateCategoryDto.name && !slug) {
             slug = this.generateSlug(updateCategoryDto.name);
@@ -80,21 +92,46 @@ let CategoryService = class CategoryService {
                 throw new common_1.ConflictException('Another category with this name or slug already exists');
             }
         }
+        let iconUrl = category.iconUrl;
+        let iconPath = category.iconPath;
+        if (file) {
+            if (category.iconPath) {
+                try {
+                    await this.uploadService.deleteFile('category-icons', category.iconPath);
+                }
+                catch (error) {
+                    console.error(`Failed to delete old category icon: ${error.message}`);
+                }
+            }
+            const uploadResult = await this.uploadService.uploadFile(file, 'category-icons', 'categories');
+            iconUrl = uploadResult.url;
+            iconPath = uploadResult.path;
+        }
         return this.prisma.category.update({
             where: { id },
             data: {
                 ...(updateCategoryDto.name && { name: updateCategoryDto.name }),
                 ...(slug && { slug }),
+                iconUrl,
+                iconPath,
             },
         });
     }
     async remove(id) {
-        await this.findOne(id);
+        const category = await this.findOne(id);
         const productCount = await this.prisma.product.count({
             where: { categoryId: id },
         });
         if (productCount > 0) {
             throw new common_1.ConflictException('Cannot delete category because it contains products');
+        }
+        if (category.iconPath) {
+            try {
+                await this.uploadService.deleteFile('category-icons', category.iconPath);
+            }
+            catch (error) {
+                console.error(`Failed to delete category icon from storage: ${error.message}`);
+            }
         }
         return this.prisma.category.delete({
             where: { id },
@@ -104,6 +141,7 @@ let CategoryService = class CategoryService {
 exports.CategoryService = CategoryService;
 exports.CategoryService = CategoryService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService,
+        upload_service_1.UploadService])
 ], CategoryService);
 //# sourceMappingURL=category.service.js.map

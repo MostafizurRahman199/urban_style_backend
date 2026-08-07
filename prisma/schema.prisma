@@ -37,6 +37,8 @@ model Category {
   id        String    @id @default(uuid())
   name      String    @unique
   slug      String    @unique
+  iconUrl   String?   // Category icon/image public URL
+  iconPath  String?   // Category icon/image storage path (for deletion)
   products  Product[]
   createdAt DateTime  @default(now())
 }

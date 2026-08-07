@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CategoryController = void 0;
 const common_1 = require("@nestjs/common");
+const platform_express_1 = require("@nestjs/platform-express");
 const swagger_1 = require("@nestjs/swagger");
 const category_service_1 = require("./category.service");
 const create_category_dto_1 = require("./dto/create-category.dto");
@@ -27,11 +28,11 @@ let CategoryController = class CategoryController {
     findAll() {
         return this.categoryService.findAll();
     }
-    create(createCategoryDto) {
-        return this.categoryService.create(createCategoryDto);
+    create(createCategoryDto, file) {
+        return this.categoryService.create(createCategoryDto, file);
     }
-    update(id, updateCategoryDto) {
-        return this.categoryService.update(id, updateCategoryDto);
+    update(id, updateCategoryDto, file) {
+        return this.categoryService.update(id, updateCategoryDto, file);
     }
     remove(id) {
         return this.categoryService.remove(id);
@@ -50,19 +51,24 @@ __decorate([
 __decorate([
     (0, common_1.Post)(),
     (0, swagger_1.ApiBearerAuth)(),
+    (0, swagger_1.ApiConsumes)('multipart/form-data'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('icon')),
     (0, swagger_1.ApiOperation)({ summary: 'Create a new category (Admin only)' }),
     (0, swagger_1.ApiResponse)({ status: 201, description: 'Category created' }),
     (0, swagger_1.ApiResponse)({ status: 400, description: 'Invalid input' }),
     (0, swagger_1.ApiResponse)({ status: 401, description: 'Unauthorized' }),
     (0, swagger_1.ApiResponse)({ status: 409, description: 'Category name or slug already exists' }),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.UploadedFile)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_category_dto_1.CreateCategoryDto]),
+    __metadata("design:paramtypes", [create_category_dto_1.CreateCategoryDto, Object]),
     __metadata("design:returntype", void 0)
 ], CategoryController.prototype, "create", null);
 __decorate([
     (0, common_1.Patch)(':id'),
     (0, swagger_1.ApiBearerAuth)(),
+    (0, swagger_1.ApiConsumes)('multipart/form-data'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('icon')),
     (0, swagger_1.ApiOperation)({ summary: 'Update a category (Admin only)' }),
     (0, swagger_1.ApiResponse)({ status: 200, description: 'Category updated' }),
     (0, swagger_1.ApiResponse)({ status: 400, description: 'Invalid input' }),
@@ -71,8 +77,9 @@ __decorate([
     (0, swagger_1.ApiResponse)({ status: 409, description: 'Conflict' }),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.UploadedFile)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_category_dto_1.UpdateCategoryDto]),
+    __metadata("design:paramtypes", [String, update_category_dto_1.UpdateCategoryDto, Object]),
     __metadata("design:returntype", void 0)
 ], CategoryController.prototype, "update", null);
 __decorate([

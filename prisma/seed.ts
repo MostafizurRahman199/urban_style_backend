@@ -73,3 +73,13 @@ main()
     console.error(e);
     process.exit(1);
   });
+
+
+
+//   after banner have category section where show all category,
+// After click any Category will go /all-products section but in left side filter auto choose that category and show that category products
+
+// do front end and backend both
+// and from dashboard at the time of create category admin can upload category Icons
+
+// that will refect on All Category Section's card

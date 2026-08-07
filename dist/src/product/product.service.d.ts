@@ -13,6 +13,8 @@ export declare class ProductService {
             name: string;
             createdAt: Date;
             slug: string;
+            iconUrl: string | null;
+            iconPath: string | null;
         };
         images: {
             id: string;
@@ -76,6 +78,8 @@ export declare class ProductService {
             name: string;
             createdAt: Date;
             slug: string;
+            iconUrl: string | null;
+            iconPath: string | null;
         };
         images: {
             id: string;
@@ -104,6 +108,8 @@ export declare class ProductService {
             name: string;
             createdAt: Date;
             slug: string;
+            iconUrl: string | null;
+            iconPath: string | null;
         };
         images: {
             id: string;
