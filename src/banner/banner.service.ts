@@ -11,16 +11,35 @@ export class BannerService {
     private uploadService: UploadService,
   ) {}
 
-  async create(createBannerDto: CreateBannerDto, file: Express.Multer.File) {
-    if (!file) {
-      throw new BadRequestException('Banner image file is required');
+  async create(
+    createBannerDto: CreateBannerDto,
+    files: { image?: Express.Multer.File[]; mobileImage?: Express.Multer.File[] },
+  ) {
+    const desktopFile = files?.image?.[0];
+    const mobileFile = files?.mobileImage?.[0];
+
+    if (!desktopFile) {
+      throw new BadRequestException('Desktop banner image file is required');
     }
 
     const uploadResult = await this.uploadService.uploadFile(
-      file,
+      desktopFile,
       'banner-images',
       'banners',
     );
+
+    let mobileImageUrl: string | null = null;
+    let mobileImagePath: string | null = null;
+
+    if (mobileFile) {
+      const mobileUploadResult = await this.uploadService.uploadFile(
+        mobileFile,
+        'banner-images',
+        'banners/mobile',
+      );
+      mobileImageUrl = mobileUploadResult.url;
+      mobileImagePath = mobileUploadResult.path;
+    }
 
     return this.prisma.banner.create({
       data: {
@@ -28,6 +47,8 @@ export class BannerService {
         description: createBannerDto.description,
         imageUrl: uploadResult.url,
         imagePath: uploadResult.path,
+        mobileImageUrl,
+        mobileImagePath,
         isActive: createBannerDto.isActive ?? true,
         sortOrder: createBannerDto.sortOrder ?? 0,
       },
@@ -57,26 +78,53 @@ export class BannerService {
     return banner;
   }
 
-  async update(id: string, updateBannerDto: UpdateBannerDto, file?: Express.Multer.File) {
+  async update(
+    id: string,
+    updateBannerDto: UpdateBannerDto,
+    files?: { image?: Express.Multer.File[]; mobileImage?: Express.Multer.File[] },
+  ) {
     const banner = await this.findOne(id);
 
     let imageUrl = banner.imageUrl;
     let imagePath = banner.imagePath;
+    let mobileImageUrl = banner.mobileImageUrl;
+    let mobileImagePath = banner.mobileImagePath;
 
-    if (file) {
+    const desktopFile = files?.image?.[0];
+    const mobileFile = files?.mobileImage?.[0];
+
+    if (desktopFile) {
       try {
         await this.uploadService.deleteFile('banner-images', banner.imagePath);
       } catch (error) {
-        console.error(`Failed to delete old banner image: ${error.message}`);
+        console.error(`Failed to delete old desktop banner image: ${error.message}`);
       }
 
       const uploadResult = await this.uploadService.uploadFile(
-        file,
+        desktopFile,
         'banner-images',
         'banners',
       );
       imageUrl = uploadResult.url;
       imagePath = uploadResult.path;
+    }
+
+    if (mobileFile) {
+      if (banner.mobileImagePath) {
+        try {
+          await this.uploadService.deleteFile('banner-images', banner.mobileImagePath);
+        } catch (error) {
+          console.error(`Failed to delete old mobile banner image: ${error.message}`);
+        }
+      }
+
+      const mobileUploadResult = await this.uploadService.uploadFile(
+        mobileFile,
+        'banner-images',
+        'banners/mobile',
+      );
+      mobileImageUrl = mobileUploadResult.url;
+      mobileImagePath = mobileUploadResult.path;
     }
 
     return this.prisma.banner.update({
@@ -88,6 +136,8 @@ export class BannerService {
         ...(updateBannerDto.sortOrder !== undefined && { sortOrder: updateBannerDto.sortOrder }),
         imageUrl,
         imagePath,
+        mobileImageUrl,
+        mobileImagePath,
       },
     });
   }
@@ -99,6 +149,14 @@ export class BannerService {
       await this.uploadService.deleteFile('banner-images', banner.imagePath);
     } catch (error) {
       console.error(`Failed to delete banner image from storage: ${error.message}`);
+    }
+
+    if (banner.mobileImagePath) {
+      try {
+        await this.uploadService.deleteFile('banner-images', banner.mobileImagePath);
+      } catch (error) {
+        console.error(`Failed to delete mobile banner image from storage: ${error.message}`);
+      }
     }
 
     return this.prisma.banner.delete({

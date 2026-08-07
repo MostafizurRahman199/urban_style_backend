@@ -6,7 +6,10 @@ export declare class BannerService {
     private prisma;
     private uploadService;
     constructor(prisma: PrismaService, uploadService: UploadService);
-    create(createBannerDto: CreateBannerDto, file: Express.Multer.File): Promise<{
+    create(createBannerDto: CreateBannerDto, files: {
+        image?: Express.Multer.File[];
+        mobileImage?: Express.Multer.File[];
+    }): Promise<{
         id: string;
         createdAt: Date;
         description: string | null;
@@ -15,6 +18,8 @@ export declare class BannerService {
         sortOrder: number;
         imageUrl: string;
         imagePath: string;
+        mobileImageUrl: string | null;
+        mobileImagePath: string | null;
     }>;
     findActive(): Promise<{
         id: string;
@@ -25,6 +30,8 @@ export declare class BannerService {
         sortOrder: number;
         imageUrl: string;
         imagePath: string;
+        mobileImageUrl: string | null;
+        mobileImagePath: string | null;
     }[]>;
     findAll(): Promise<{
         id: string;
@@ -35,6 +42,8 @@ export declare class BannerService {
         sortOrder: number;
         imageUrl: string;
         imagePath: string;
+        mobileImageUrl: string | null;
+        mobileImagePath: string | null;
     }[]>;
     findOne(id: string): Promise<{
         id: string;
@@ -45,8 +54,13 @@ export declare class BannerService {
         sortOrder: number;
         imageUrl: string;
         imagePath: string;
+        mobileImageUrl: string | null;
+        mobileImagePath: string | null;
     }>;
-    update(id: string, updateBannerDto: UpdateBannerDto, file?: Express.Multer.File): Promise<{
+    update(id: string, updateBannerDto: UpdateBannerDto, files?: {
+        image?: Express.Multer.File[];
+        mobileImage?: Express.Multer.File[];
+    }): Promise<{
         id: string;
         createdAt: Date;
         description: string | null;
@@ -55,6 +69,8 @@ export declare class BannerService {
         sortOrder: number;
         imageUrl: string;
         imagePath: string;
+        mobileImageUrl: string | null;
+        mobileImagePath: string | null;
     }>;
     remove(id: string): Promise<{
         id: string;
@@ -65,5 +81,7 @@ export declare class BannerService {
         sortOrder: number;
         imageUrl: string;
         imagePath: string;
+        mobileImageUrl: string | null;
+        mobileImagePath: string | null;
     }>;
 }

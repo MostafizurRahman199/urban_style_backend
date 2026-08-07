@@ -31,11 +31,11 @@ let BannerController = class BannerController {
     findAll() {
         return this.bannerService.findAll();
     }
-    create(createBannerDto, file) {
-        return this.bannerService.create(createBannerDto, file);
+    create(createBannerDto, files) {
+        return this.bannerService.create(createBannerDto, files);
     }
-    update(id, updateBannerDto, file) {
-        return this.bannerService.update(id, updateBannerDto, file);
+    update(id, updateBannerDto, files) {
+        return this.bannerService.update(id, updateBannerDto, files);
     }
     remove(id) {
         return this.bannerService.remove(id);
@@ -65,34 +65,16 @@ __decorate([
     (0, common_1.Post)(),
     (0, swagger_1.ApiBearerAuth)(),
     (0, swagger_1.ApiConsumes)('multipart/form-data'),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('image')),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileFieldsInterceptor)([
+        { name: 'image', maxCount: 1 },
+        { name: 'mobileImage', maxCount: 1 },
+    ])),
     (0, swagger_1.ApiOperation)({ summary: 'Create a new banner (Admin only)' }),
-    (0, swagger_1.ApiBody)({
-        schema: {
-            type: 'object',
-            properties: {
-                title: { type: 'string', example: 'Summer Sale' },
-                description: { type: 'string', example: 'Up to 50% off' },
-                isActive: { type: 'boolean', example: true },
-                sortOrder: { type: 'integer', example: 0 },
-                image: {
-                    type: 'string',
-                    format: 'binary',
-                },
-            },
-            required: ['image'],
-        },
-    }),
     (0, swagger_1.ApiResponse)({ status: 201, description: 'Banner created' }),
     (0, swagger_1.ApiResponse)({ status: 400, description: 'Invalid input' }),
     (0, swagger_1.ApiResponse)({ status: 401, description: 'Unauthorized' }),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.UploadedFile)(new common_1.ParseFilePipe({
-        validators: [
-            new common_1.MaxFileSizeValidator({ maxSize: 5 * 1024 * 1024, message: 'Max size is 5MB' }),
-            new common_1.FileTypeValidator({ fileType: 'image/(jpeg|png|webp)' }),
-        ],
-    }))),
+    __param(1, (0, common_1.UploadedFiles)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_banner_dto_1.CreateBannerDto, Object]),
     __metadata("design:returntype", void 0)
@@ -101,36 +83,18 @@ __decorate([
     (0, common_1.Patch)(':id'),
     (0, swagger_1.ApiBearerAuth)(),
     (0, swagger_1.ApiConsumes)('multipart/form-data'),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('image')),
-    (0, swagger_1.ApiOperation)({ summary: 'Update banner fields / replace image (Admin only)' }),
-    (0, swagger_1.ApiBody)({
-        schema: {
-            type: 'object',
-            properties: {
-                title: { type: 'string', example: 'Summer Sale' },
-                description: { type: 'string', example: 'Up to 50% off' },
-                isActive: { type: 'boolean', example: true },
-                sortOrder: { type: 'integer', example: 0 },
-                image: {
-                    type: 'string',
-                    format: 'binary',
-                },
-            },
-        },
-    }),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileFieldsInterceptor)([
+        { name: 'image', maxCount: 1 },
+        { name: 'mobileImage', maxCount: 1 },
+    ])),
+    (0, swagger_1.ApiOperation)({ summary: 'Update banner fields / replace images (Admin only)' }),
     (0, swagger_1.ApiResponse)({ status: 200, description: 'Banner updated' }),
     (0, swagger_1.ApiResponse)({ status: 400, description: 'Invalid input' }),
     (0, swagger_1.ApiResponse)({ status: 401, description: 'Unauthorized' }),
     (0, swagger_1.ApiResponse)({ status: 404, description: 'Banner not found' }),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
-    __param(2, (0, common_1.UploadedFile)(new common_1.ParseFilePipe({
-        validators: [
-            new common_1.MaxFileSizeValidator({ maxSize: 5 * 1024 * 1024, message: 'Max size is 5MB' }),
-            new common_1.FileTypeValidator({ fileType: 'image/(jpeg|png|webp)' }),
-        ],
-        fileIsRequired: false,
-    }))),
+    __param(2, (0, common_1.UploadedFiles)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, update_banner_dto_1.UpdateBannerDto, Object]),
     __metadata("design:returntype", void 0)

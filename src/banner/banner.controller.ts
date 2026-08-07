@@ -7,12 +7,9 @@ import {
   Body,
   Param,
   UseInterceptors,
-  UploadedFile,
-  ParseFilePipe,
-  MaxFileSizeValidator,
-  FileTypeValidator,
+  UploadedFiles,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiConsumes, ApiBody } from '@nestjs/swagger';
 import { BannerService } from './banner.service';
 import { CreateBannerDto } from './dto/create-banner.dto';
@@ -44,62 +41,34 @@ export class BannerController {
   @Post()
   @ApiBearerAuth()
   @ApiConsumes('multipart/form-data')
-  @UseInterceptors(FileInterceptor('image'))
+  @UseInterceptors(
+    FileFieldsInterceptor([
+      { name: 'image', maxCount: 1 },
+      { name: 'mobileImage', maxCount: 1 },
+    ]),
+  )
   @ApiOperation({ summary: 'Create a new banner (Admin only)' })
-  @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        title: { type: 'string', example: 'Summer Sale' },
-        description: { type: 'string', example: 'Up to 50% off' },
-        isActive: { type: 'boolean', example: true },
-        sortOrder: { type: 'integer', example: 0 },
-        image: {
-          type: 'string',
-          format: 'binary',
-        },
-      },
-      required: ['image'],
-    },
-  })
   @ApiResponse({ status: 201, description: 'Banner created' })
   @ApiResponse({ status: 400, description: 'Invalid input' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   create(
     @Body() createBannerDto: CreateBannerDto,
-    @UploadedFile(
-      new ParseFilePipe({
-        validators: [
-          new MaxFileSizeValidator({ maxSize: 5 * 1024 * 1024, message: 'Max size is 5MB' }),
-          new FileTypeValidator({ fileType: 'image/(jpeg|png|webp)' }),
-        ],
-      }),
-    )
-    file: Express.Multer.File,
+    @UploadedFiles()
+    files: { image?: Express.Multer.File[]; mobileImage?: Express.Multer.File[] },
   ) {
-    return this.bannerService.create(createBannerDto, file);
+    return this.bannerService.create(createBannerDto, files);
   }
 
   @Patch(':id')
   @ApiBearerAuth()
   @ApiConsumes('multipart/form-data')
-  @UseInterceptors(FileInterceptor('image'))
-  @ApiOperation({ summary: 'Update banner fields / replace image (Admin only)' })
-  @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        title: { type: 'string', example: 'Summer Sale' },
-        description: { type: 'string', example: 'Up to 50% off' },
-        isActive: { type: 'boolean', example: true },
-        sortOrder: { type: 'integer', example: 0 },
-        image: {
-          type: 'string',
-          format: 'binary',
-        },
-      },
-    },
-  })
+  @UseInterceptors(
+    FileFieldsInterceptor([
+      { name: 'image', maxCount: 1 },
+      { name: 'mobileImage', maxCount: 1 },
+    ]),
+  )
+  @ApiOperation({ summary: 'Update banner fields / replace images (Admin only)' })
   @ApiResponse({ status: 200, description: 'Banner updated' })
   @ApiResponse({ status: 400, description: 'Invalid input' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
@@ -107,18 +76,10 @@ export class BannerController {
   update(
     @Param('id') id: string,
     @Body() updateBannerDto: UpdateBannerDto,
-    @UploadedFile(
-      new ParseFilePipe({
-        validators: [
-          new MaxFileSizeValidator({ maxSize: 5 * 1024 * 1024, message: 'Max size is 5MB' }),
-          new FileTypeValidator({ fileType: 'image/(jpeg|png|webp)' }),
-        ],
-        fileIsRequired: false,
-      }),
-    )
-    file?: Express.Multer.File,
+    @UploadedFiles()
+    files?: { image?: Express.Multer.File[]; mobileImage?: Express.Multer.File[] },
   ) {
-    return this.bannerService.update(id, updateBannerDto, file);
+    return this.bannerService.update(id, updateBannerDto, files);
   }
 
   @Delete(':id')
