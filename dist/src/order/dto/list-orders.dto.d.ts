@@ -4,6 +4,7 @@ export declare class ListOrdersDto {
     paymentStatus?: PaymentStatus;
     startDate?: string;
     endDate?: string;
+    search?: string;
     page?: number;
     limit?: number;
 }

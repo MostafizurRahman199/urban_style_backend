@@ -80,7 +80,7 @@ let OrderService = class OrderService {
         });
     }
     async findAll(query) {
-        const { orderStatus, paymentStatus, startDate, endDate, page = 1, limit = 10 } = query;
+        const { orderStatus, paymentStatus, startDate, endDate, search, page = 1, limit = 10 } = query;
         const skip = (page - 1) * limit;
         const where = {};
         if (orderStatus) {
@@ -88,6 +88,13 @@ let OrderService = class OrderService {
         }
         if (paymentStatus) {
             where.paymentStatus = paymentStatus;
+        }
+        if (search) {
+            where.OR = [
+                { id: { contains: search, mode: 'insensitive' } },
+                { customerName: { contains: search, mode: 'insensitive' } },
+                { contactNumber: { contains: search, mode: 'insensitive' } },
+            ];
         }
         if (startDate || endDate) {
             where.createdAt = {};

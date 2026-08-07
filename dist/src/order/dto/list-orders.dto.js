@@ -19,6 +19,7 @@ class ListOrdersDto {
     paymentStatus;
     startDate;
     endDate;
+    search;
     page = 1;
     limit = 10;
 }
@@ -47,6 +48,12 @@ __decorate([
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], ListOrdersDto.prototype, "endDate", void 0);
+__decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Search query for ID, name, or phone', required: false }),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", String)
+], ListOrdersDto.prototype, "search", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ description: 'Page number (default: 1)', required: false, default: 1 }),
     (0, class_transformer_1.Transform)(({ value }) => parseInt(value, 10)),

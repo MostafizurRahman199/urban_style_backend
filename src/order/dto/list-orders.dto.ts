@@ -24,6 +24,11 @@ export class ListOrdersDto {
   @IsOptional()
   endDate?: string;
 
+  @ApiProperty({ description: 'Search query for ID, name, or phone', required: false })
+  @IsString()
+  @IsOptional()
+  search?: string;
+
   @ApiProperty({ description: 'Page number (default: 1)', required: false, default: 1 })
   @Transform(({ value }) => parseInt(value, 10))
   @IsInt()

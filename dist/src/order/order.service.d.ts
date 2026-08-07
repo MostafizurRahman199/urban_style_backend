@@ -8,21 +8,19 @@ export declare class OrderService {
     create(createOrderDto: CreateOrderDto): Promise<{
         items: ({
             product: {
-                name: string;
                 id: string;
+                name: string;
             };
         } & {
-            price: import("@prisma/client-runtime-utils").Decimal;
-            quantity: number;
             id: string;
+            quantity: number;
+            price: import("@prisma/client-runtime-utils").Decimal;
             color: string | null;
             productId: string;
             orderId: string;
         })[];
     } & {
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
         customerName: string;
         contactNumber: string;
         address: string;
@@ -30,26 +28,26 @@ export declare class OrderService {
         totalAmount: import("@prisma/client-runtime-utils").Decimal;
         orderStatus: import("@prisma/client").$Enums.OrderStatus;
         paymentStatus: import("@prisma/client").$Enums.PaymentStatus;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     findAll(query: ListOrdersDto): Promise<{
         data: ({
             items: ({
                 product: {
-                    name: string;
                     id: string;
+                    name: string;
                 };
             } & {
-                price: import("@prisma/client-runtime-utils").Decimal;
-                quantity: number;
                 id: string;
+                quantity: number;
+                price: import("@prisma/client-runtime-utils").Decimal;
                 color: string | null;
                 productId: string;
                 orderId: string;
             })[];
         } & {
             id: string;
-            createdAt: Date;
-            updatedAt: Date;
             customerName: string;
             contactNumber: string;
             address: string;
@@ -57,6 +55,8 @@ export declare class OrderService {
             totalAmount: import("@prisma/client-runtime-utils").Decimal;
             orderStatus: import("@prisma/client").$Enums.OrderStatus;
             paymentStatus: import("@prisma/client").$Enums.PaymentStatus;
+            createdAt: Date;
+            updatedAt: Date;
         })[];
         meta: {
             total: number;
@@ -68,31 +68,29 @@ export declare class OrderService {
     findOne(id: string): Promise<{
         items: ({
             product: {
-                description: string;
-                name: string;
-                price: import("@prisma/client-runtime-utils").Decimal;
+                id: string;
+                createdAt: Date;
+                updatedAt: Date;
                 quantity: number;
+                price: import("@prisma/client-runtime-utils").Decimal;
+                name: string;
+                description: string;
+                discountPrice: import("@prisma/client-runtime-utils").Decimal | null;
                 colors: string[];
                 isPopular: boolean;
                 isActive: boolean;
                 categoryId: string;
-                id: string;
-                discountPrice: import("@prisma/client-runtime-utils").Decimal | null;
-                createdAt: Date;
-                updatedAt: Date;
             };
         } & {
-            price: import("@prisma/client-runtime-utils").Decimal;
-            quantity: number;
             id: string;
+            quantity: number;
+            price: import("@prisma/client-runtime-utils").Decimal;
             color: string | null;
             productId: string;
             orderId: string;
         })[];
     } & {
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
         customerName: string;
         contactNumber: string;
         address: string;
@@ -100,11 +98,11 @@ export declare class OrderService {
         totalAmount: import("@prisma/client-runtime-utils").Decimal;
         orderStatus: import("@prisma/client").$Enums.OrderStatus;
         paymentStatus: import("@prisma/client").$Enums.PaymentStatus;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     updateOrderStatus(id: string, status: OrderStatus): Promise<{
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
         customerName: string;
         contactNumber: string;
         address: string;
@@ -112,11 +110,11 @@ export declare class OrderService {
         totalAmount: import("@prisma/client-runtime-utils").Decimal;
         orderStatus: import("@prisma/client").$Enums.OrderStatus;
         paymentStatus: import("@prisma/client").$Enums.PaymentStatus;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
     updatePaymentStatus(id: string, status: PaymentStatus): Promise<{
         id: string;
-        createdAt: Date;
-        updatedAt: Date;
         customerName: string;
         contactNumber: string;
         address: string;
@@ -124,5 +122,7 @@ export declare class OrderService {
         totalAmount: import("@prisma/client-runtime-utils").Decimal;
         orderStatus: import("@prisma/client").$Enums.OrderStatus;
         paymentStatus: import("@prisma/client").$Enums.PaymentStatus;
+        createdAt: Date;
+        updatedAt: Date;
     }>;
 }
