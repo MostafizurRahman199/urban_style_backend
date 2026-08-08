@@ -11,10 +11,10 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
 
   constructor(configService: ConfigService) {
     const dbUrl =
-      configService.get<string>('DIRECT_URL') ||
-      process.env.DIRECT_URL ||
       configService.get<string>('DATABASE_URL') ||
       process.env.DATABASE_URL ||
+      configService.get<string>('DIRECT_URL') ||
+      process.env.DIRECT_URL ||
       '';
 
     let adapter: PrismaPg | undefined;

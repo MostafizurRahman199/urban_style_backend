@@ -20,10 +20,10 @@ let PrismaService = PrismaService_1 = class PrismaService extends client_1.Prism
     logger = new common_1.Logger(PrismaService_1.name);
     pool;
     constructor(configService) {
-        const dbUrl = configService.get('DIRECT_URL') ||
-            process.env.DIRECT_URL ||
-            configService.get('DATABASE_URL') ||
+        const dbUrl = configService.get('DATABASE_URL') ||
             process.env.DATABASE_URL ||
+            configService.get('DIRECT_URL') ||
+            process.env.DIRECT_URL ||
             '';
         let adapter;
         let pool;
