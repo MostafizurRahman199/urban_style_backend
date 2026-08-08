@@ -8,6 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var PrismaService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PrismaService = void 0;
 const common_1 = require("@nestjs/common");
@@ -15,28 +16,55 @@ const client_1 = require("@prisma/client");
 const adapter_pg_1 = require("@prisma/adapter-pg");
 const pg_1 = require("pg");
 const config_1 = require("@nestjs/config");
-let PrismaService = class PrismaService extends client_1.PrismaClient {
+let PrismaService = PrismaService_1 = class PrismaService extends client_1.PrismaClient {
+    logger = new common_1.Logger(PrismaService_1.name);
     pool;
     constructor(configService) {
-        const connectionString = configService.get('DATABASE_URL') || process.env.DATABASE_URL;
-        const pool = new pg_1.Pool({
-            connectionString,
-            ssl: { rejectUnauthorized: false },
-        });
-        const adapter = new adapter_pg_1.PrismaPg(pool);
-        super({ adapter });
+        const dbUrl = configService.get('DIRECT_URL') ||
+            process.env.DIRECT_URL ||
+            configService.get('DATABASE_URL') ||
+            process.env.DATABASE_URL ||
+            '';
+        let adapter;
+        let pool;
+        if (dbUrl) {
+            try {
+                pool = new pg_1.Pool({
+                    connectionString: dbUrl,
+                    ssl: { rejectUnauthorized: false },
+                });
+                adapter = new adapter_pg_1.PrismaPg(pool);
+            }
+            catch (err) {
+                console.error('Failed to initialize PrismaPg adapter:', err);
+            }
+        }
+        if (adapter) {
+            super({ adapter });
+        }
+        else {
+            super();
+        }
         this.pool = pool;
     }
     async onModuleInit() {
-        await this.$connect();
+        try {
+            await this.$connect();
+            this.logger.log('Successfully connected to the database.');
+        }
+        catch (error) {
+            this.logger.error('Database connection error during onModuleInit:', error);
+        }
     }
     async onModuleDestroy() {
         await this.$disconnect();
-        await this.pool.end();
+        if (this.pool) {
+            await this.pool.end();
+        }
     }
 };
 exports.PrismaService = PrismaService;
-exports.PrismaService = PrismaService = __decorate([
+exports.PrismaService = PrismaService = PrismaService_1 = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [config_1.ConfigService])
 ], PrismaService);

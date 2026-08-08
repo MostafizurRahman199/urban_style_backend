@@ -1,9 +1,13 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '../src/app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import express from 'express';
 import { ExpressAdapter } from '@nestjs/platform-express';
+import { AllExceptionsFilter } from '../src/common/filters/all-exceptions.filter';
 
 const server = express();
 let cachedServer: any;
@@ -21,6 +25,8 @@ async function bootstrapServer() {
       allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-Requested-With'],
       credentials: true,
     });
+
+    app.useGlobalFilters(new AllExceptionsFilter());
 
     app.useGlobalPipes(
       new ValidationPipe({
