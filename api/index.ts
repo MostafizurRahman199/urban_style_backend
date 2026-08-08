@@ -15,7 +15,12 @@ async function bootstrapServer() {
       new ExpressAdapter(server),
     );
 
-    app.enableCors();
+    app.enableCors({
+      origin: true,
+      methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+      allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-Requested-With'],
+      credentials: true,
+    });
 
     app.useGlobalPipes(
       new ValidationPipe({

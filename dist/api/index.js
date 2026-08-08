@@ -15,7 +15,12 @@ let cachedServer;
 async function bootstrapServer() {
     if (!cachedServer) {
         const app = await core_1.NestFactory.create(app_module_1.AppModule, new platform_express_1.ExpressAdapter(server));
-        app.enableCors();
+        app.enableCors({
+            origin: true,
+            methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+            allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-Requested-With'],
+            credentials: true,
+        });
         app.useGlobalPipes(new common_1.ValidationPipe({
             whitelist: true,
             transform: true,
