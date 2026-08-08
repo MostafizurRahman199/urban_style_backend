@@ -21,11 +21,11 @@ export declare class ProductController {
                 productId: string;
             }[];
         } & {
+            description: string;
             id: string;
             name: string;
             createdAt: Date;
             updatedAt: Date;
-            description: string;
             categoryId: string;
             videoUrl: string | null;
             price: import("@prisma/client-runtime-utils").Decimal;
@@ -62,11 +62,11 @@ export declare class ProductController {
             productId: string;
         }[];
     } & {
+        description: string;
         id: string;
         name: string;
         createdAt: Date;
         updatedAt: Date;
-        description: string;
         categoryId: string;
         videoUrl: string | null;
         price: import("@prisma/client-runtime-utils").Decimal;
@@ -96,11 +96,11 @@ export declare class ProductController {
             productId: string;
         }[];
     } & {
+        description: string;
         id: string;
         name: string;
         createdAt: Date;
         updatedAt: Date;
-        description: string;
         categoryId: string;
         videoUrl: string | null;
         price: import("@prisma/client-runtime-utils").Decimal;
@@ -130,11 +130,11 @@ export declare class ProductController {
             productId: string;
         }[];
     } & {
+        description: string;
         id: string;
         name: string;
         createdAt: Date;
         updatedAt: Date;
-        description: string;
         categoryId: string;
         videoUrl: string | null;
         price: import("@prisma/client-runtime-utils").Decimal;
@@ -152,11 +152,11 @@ export declare class ProductController {
         message: string;
     }>;
     remove(id: string): Promise<{
+        description: string;
         id: string;
         name: string;
         createdAt: Date;
         updatedAt: Date;
-        description: string;
         categoryId: string;
         videoUrl: string | null;
         price: import("@prisma/client-runtime-utils").Decimal;

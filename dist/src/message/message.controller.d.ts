@@ -4,24 +4,24 @@ export declare class MessageController {
     private readonly messageService;
     constructor(messageService: MessageService);
     create(createMessageDto: CreateMessageDto): Promise<{
-        id: string;
         email: string | null;
+        id: string;
         name: string;
         createdAt: Date;
         contactNumber: string;
         message: string;
     }>;
     findAll(): Promise<{
-        id: string;
         email: string | null;
+        id: string;
         name: string;
         createdAt: Date;
         contactNumber: string;
         message: string;
     }[]>;
     remove(id: string): Promise<{
-        id: string;
         email: string | null;
+        id: string;
         name: string;
         createdAt: Date;
         contactNumber: string;

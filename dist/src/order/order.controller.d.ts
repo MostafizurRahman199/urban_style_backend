@@ -77,11 +77,11 @@ export declare class OrderController {
     findOne(id: string): Promise<{
         items: ({
             product: {
+                description: string;
                 id: string;
                 name: string;
                 createdAt: Date;
                 updatedAt: Date;
-                description: string;
                 categoryId: string;
                 videoUrl: string | null;
                 price: import("@prisma/client-runtime-utils").Decimal;

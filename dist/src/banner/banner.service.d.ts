@@ -10,10 +10,10 @@ export declare class BannerService {
         image?: Express.Multer.File[];
         mobileImage?: Express.Multer.File[];
     }): Promise<{
-        id: string;
-        createdAt: Date;
         description: string | null;
         title: string | null;
+        id: string;
+        createdAt: Date;
         isActive: boolean;
         sortOrder: number;
         imageUrl: string;
@@ -22,10 +22,10 @@ export declare class BannerService {
         mobileImagePath: string | null;
     }>;
     findActive(): Promise<{
-        id: string;
-        createdAt: Date;
         description: string | null;
         title: string | null;
+        id: string;
+        createdAt: Date;
         isActive: boolean;
         sortOrder: number;
         imageUrl: string;
@@ -34,10 +34,10 @@ export declare class BannerService {
         mobileImagePath: string | null;
     }[]>;
     findAll(): Promise<{
-        id: string;
-        createdAt: Date;
         description: string | null;
         title: string | null;
+        id: string;
+        createdAt: Date;
         isActive: boolean;
         sortOrder: number;
         imageUrl: string;
@@ -46,10 +46,10 @@ export declare class BannerService {
         mobileImagePath: string | null;
     }[]>;
     findOne(id: string): Promise<{
-        id: string;
-        createdAt: Date;
         description: string | null;
         title: string | null;
+        id: string;
+        createdAt: Date;
         isActive: boolean;
         sortOrder: number;
         imageUrl: string;
@@ -61,10 +61,10 @@ export declare class BannerService {
         image?: Express.Multer.File[];
         mobileImage?: Express.Multer.File[];
     }): Promise<{
-        id: string;
-        createdAt: Date;
         description: string | null;
         title: string | null;
+        id: string;
+        createdAt: Date;
         isActive: boolean;
         sortOrder: number;
         imageUrl: string;
@@ -73,10 +73,10 @@ export declare class BannerService {
         mobileImagePath: string | null;
     }>;
     remove(id: string): Promise<{
-        id: string;
-        createdAt: Date;
         description: string | null;
         title: string | null;
+        id: string;
+        createdAt: Date;
         isActive: boolean;
         sortOrder: number;
         imageUrl: string;

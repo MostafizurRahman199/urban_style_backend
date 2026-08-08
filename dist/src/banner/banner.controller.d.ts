@@ -5,10 +5,10 @@ export declare class BannerController {
     private readonly bannerService;
     constructor(bannerService: BannerService);
     findActive(): Promise<{
-        id: string;
-        createdAt: Date;
         description: string | null;
         title: string | null;
+        id: string;
+        createdAt: Date;
         isActive: boolean;
         sortOrder: number;
         imageUrl: string;
@@ -17,10 +17,10 @@ export declare class BannerController {
         mobileImagePath: string | null;
     }[]>;
     findAll(): Promise<{
-        id: string;
-        createdAt: Date;
         description: string | null;
         title: string | null;
+        id: string;
+        createdAt: Date;
         isActive: boolean;
         sortOrder: number;
         imageUrl: string;
@@ -32,10 +32,10 @@ export declare class BannerController {
         image?: Express.Multer.File[];
         mobileImage?: Express.Multer.File[];
     }): Promise<{
-        id: string;
-        createdAt: Date;
         description: string | null;
         title: string | null;
+        id: string;
+        createdAt: Date;
         isActive: boolean;
         sortOrder: number;
         imageUrl: string;
@@ -47,10 +47,10 @@ export declare class BannerController {
         image?: Express.Multer.File[];
         mobileImage?: Express.Multer.File[];
     }): Promise<{
-        id: string;
-        createdAt: Date;
         description: string | null;
         title: string | null;
+        id: string;
+        createdAt: Date;
         isActive: boolean;
         sortOrder: number;
         imageUrl: string;
@@ -59,10 +59,10 @@ export declare class BannerController {
         mobileImagePath: string | null;
     }>;
     remove(id: string): Promise<{
-        id: string;
-        createdAt: Date;
         description: string | null;
         title: string | null;
+        id: string;
+        createdAt: Date;
         isActive: boolean;
         sortOrder: number;
         imageUrl: string;

@@ -25,11 +25,11 @@ export declare class ProductService {
             productId: string;
         }[];
     } & {
+        description: string;
         id: string;
         name: string;
         createdAt: Date;
         updatedAt: Date;
-        description: string;
         categoryId: string;
         videoUrl: string | null;
         price: import("@prisma/client-runtime-utils").Decimal;
@@ -57,11 +57,11 @@ export declare class ProductService {
                 productId: string;
             }[];
         } & {
+            description: string;
             id: string;
             name: string;
             createdAt: Date;
             updatedAt: Date;
-            description: string;
             categoryId: string;
             videoUrl: string | null;
             price: import("@prisma/client-runtime-utils").Decimal;
@@ -98,11 +98,11 @@ export declare class ProductService {
             productId: string;
         }[];
     } & {
+        description: string;
         id: string;
         name: string;
         createdAt: Date;
         updatedAt: Date;
-        description: string;
         categoryId: string;
         videoUrl: string | null;
         price: import("@prisma/client-runtime-utils").Decimal;
@@ -132,11 +132,11 @@ export declare class ProductService {
             productId: string;
         }[];
     } & {
+        description: string;
         id: string;
         name: string;
         createdAt: Date;
         updatedAt: Date;
-        description: string;
         categoryId: string;
         videoUrl: string | null;
         price: import("@prisma/client-runtime-utils").Decimal;
@@ -154,11 +154,11 @@ export declare class ProductService {
         message: string;
     }>;
     remove(id: string): Promise<{
+        description: string;
         id: string;
         name: string;
         createdAt: Date;
         updatedAt: Date;
-        description: string;
         categoryId: string;
         videoUrl: string | null;
         price: import("@prisma/client-runtime-utils").Decimal;
