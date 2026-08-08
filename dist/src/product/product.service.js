@@ -67,7 +67,7 @@ let ProductService = class ProductService {
         return this.findOne(product.id);
     }
     async findAll(query) {
-        const { categoryId, isPopular, search, minPrice, maxPrice, page = 1, limit = 10 } = query;
+        const { categoryId, isPopular, isActive, search, minPrice, maxPrice, page = 1, limit = 10 } = query;
         const skip = (page - 1) * limit;
         const where = {};
         if (categoryId) {
@@ -75,6 +75,9 @@ let ProductService = class ProductService {
         }
         if (isPopular !== undefined) {
             where.isPopular = isPopular;
+        }
+        if (isActive !== undefined) {
+            where.isActive = isActive;
         }
         if (search) {
             where.OR = [

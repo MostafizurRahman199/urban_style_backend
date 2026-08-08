@@ -66,7 +66,7 @@ export class ProductService {
   }
 
   async findAll(query: ListProductsDto) {
-    const { categoryId, isPopular, search, minPrice, maxPrice, page = 1, limit = 10 } = query;
+    const { categoryId, isPopular, isActive, search, minPrice, maxPrice, page = 1, limit = 10 } = query;
     const skip = (page - 1) * limit;
 
     const where: any = {};
@@ -77,6 +77,10 @@ export class ProductService {
 
     if (isPopular !== undefined) {
       where.isPopular = isPopular;
+    }
+
+    if (isActive !== undefined) {
+      where.isActive = isActive;
     }
 
     if (search) {

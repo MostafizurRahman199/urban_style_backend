@@ -15,6 +15,7 @@ const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
 class ListProductsDto {
     categoryId;
+    isActive;
     isPopular;
     search;
     minPrice;
@@ -30,8 +31,15 @@ __decorate([
     __metadata("design:type", String)
 ], ListProductsDto.prototype, "categoryId", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: 'Filter by active status', required: false }),
+    (0, class_transformer_1.Transform)(({ value }) => (value !== undefined && value !== null && value !== '' ? value === 'true' || value === true : undefined)),
+    (0, class_validator_1.IsBoolean)(),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Boolean)
+], ListProductsDto.prototype, "isActive", void 0);
+__decorate([
     (0, swagger_1.ApiProperty)({ description: 'Filter by popular products flag', required: false }),
-    (0, class_transformer_1.Transform)(({ value }) => value === 'true' || value === true),
+    (0, class_transformer_1.Transform)(({ value }) => (value !== undefined && value !== null && value !== '' ? value === 'true' || value === true : undefined)),
     (0, class_validator_1.IsBoolean)(),
     (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Boolean)
@@ -44,7 +52,7 @@ __decorate([
 ], ListProductsDto.prototype, "search", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ description: 'Filter by minimum price', required: false }),
-    (0, class_transformer_1.Transform)(({ value }) => parseFloat(value)),
+    (0, class_transformer_1.Transform)(({ value }) => (value !== undefined && value !== null && value !== '' ? parseFloat(value) : undefined)),
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0),
     (0, class_validator_1.IsOptional)(),
@@ -52,7 +60,7 @@ __decorate([
 ], ListProductsDto.prototype, "minPrice", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ description: 'Filter by maximum price', required: false }),
-    (0, class_transformer_1.Transform)(({ value }) => parseFloat(value)),
+    (0, class_transformer_1.Transform)(({ value }) => (value !== undefined && value !== null && value !== '' ? parseFloat(value) : undefined)),
     (0, class_validator_1.IsNumber)(),
     (0, class_validator_1.Min)(0),
     (0, class_validator_1.IsOptional)(),
@@ -60,7 +68,7 @@ __decorate([
 ], ListProductsDto.prototype, "maxPrice", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ description: 'Page number (default: 1)', required: false, default: 1 }),
-    (0, class_transformer_1.Transform)(({ value }) => parseInt(value, 10)),
+    (0, class_transformer_1.Transform)(({ value }) => (value !== undefined && value !== null && value !== '' ? parseInt(value, 10) : 1)),
     (0, class_validator_1.IsInt)(),
     (0, class_validator_1.Min)(1),
     (0, class_validator_1.IsOptional)(),
@@ -68,7 +76,7 @@ __decorate([
 ], ListProductsDto.prototype, "page", void 0);
 __decorate([
     (0, swagger_1.ApiProperty)({ description: 'Items per page (default: 10)', required: false, default: 10 }),
-    (0, class_transformer_1.Transform)(({ value }) => parseInt(value, 10)),
+    (0, class_transformer_1.Transform)(({ value }) => (value !== undefined && value !== null && value !== '' ? parseInt(value, 10) : 10)),
     (0, class_validator_1.IsInt)(),
     (0, class_validator_1.Min)(1),
     (0, class_validator_1.IsOptional)(),

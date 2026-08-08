@@ -18,8 +18,11 @@ const config_1 = require("@nestjs/config");
 let PrismaService = class PrismaService extends client_1.PrismaClient {
     pool;
     constructor(configService) {
-        const connectionString = configService.get('DATABASE_URL');
-        const pool = new pg_1.Pool({ connectionString });
+        const connectionString = configService.get('DATABASE_URL') || process.env.DATABASE_URL;
+        const pool = new pg_1.Pool({
+            connectionString,
+            ssl: { rejectUnauthorized: false },
+        });
         const adapter = new adapter_pg_1.PrismaPg(pool);
         super({ adapter });
         this.pool = pool;
