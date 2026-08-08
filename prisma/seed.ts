@@ -18,50 +18,35 @@ async function main() {
 
   console.log('Seeding database...');
 
-  const adminEmail = 'admin@urbanstyle.com';
-  const existingAdmin = await prisma.admin.findUnique({
-    where: { email: adminEmail },
-  });
+  const adminEmail = process.env.ADMIN_EMAIL || process.env.admin_email;
+  const adminPassword = process.env.ADMIN_PASSWORD || process.env.admin_password;
 
-  if (!existingAdmin) {
-    const passwordHash = await bcrypt.hash('admin1234', 10);
-    await prisma.admin.create({
-      data: {
-        name: 'Admin User',
-        email: adminEmail,
-        password: passwordHash,
-      },
+  if (adminEmail && adminPassword) {
+    const passwordHash = await bcrypt.hash(adminPassword, 10);
+    const existingAdmin = await prisma.admin.findUnique({
+      where: { email: adminEmail },
     });
-    console.log('Admin user created successfully: email: admin@urbanstyle.com, password: admin1234');
+
+    if (!existingAdmin) {
+      await prisma.admin.create({
+        data: {
+          name: 'Urban Style Admin',
+          email: adminEmail,
+          password: passwordHash,
+        },
+      });
+      console.log(`Admin user created successfully for email: ${adminEmail}`);
+    } else {
+      await prisma.admin.update({
+        where: { email: adminEmail },
+        data: {
+          password: passwordHash,
+        },
+      });
+      console.log(`Admin user password updated successfully for email: ${adminEmail}`);
+    }
   } else {
-    console.log('Admin user already exists.');
-  }
-
-  const requestedAdminEmail = 'urbanstyle@gmail.com';
-  const existingRequestedAdmin = await prisma.admin.findUnique({
-    where: { email: requestedAdminEmail },
-  });
-
-  if (!existingRequestedAdmin) {
-    const requestedPasswordHash = await bcrypt.hash('urbanstyle_bangladesh_2026', 10);
-    await prisma.admin.create({
-      data: {
-        name: 'Urban Style Admin',
-        email: requestedAdminEmail,
-        password: requestedPasswordHash,
-      },
-    });
-    console.log('Requested Admin user created successfully: email: urbanstyle@gmail.com');
-  } else {
-    // Update password if it already exists to match requested
-    const requestedPasswordHash = await bcrypt.hash('urbanstyle_bangladesh_2026', 10);
-    await prisma.admin.update({
-      where: { email: requestedAdminEmail },
-      data: {
-        password: requestedPasswordHash,
-      },
-    });
-    console.log('Requested Admin user password updated successfully.');
+    console.warn('Skipping admin seeding: ADMIN_EMAIL / ADMIN_PASSWORD (or admin_email / admin_password) not set in environment variables.');
   }
 
   await prisma.$disconnect();
@@ -73,13 +58,3 @@ main()
     console.error(e);
     process.exit(1);
   });
-
-
-
-//   after banner have category section where show all category,
-// After click any Category will go /all-products section but in left side filter auto choose that category and show that category products
-
-// do front end and backend both
-// and from dashboard at the time of create category admin can upload category Icons
-
-// that will refect on All Category Section's card
