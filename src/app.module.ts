@@ -12,6 +12,8 @@ import { AnalyticsModule } from './analytics/analytics.module';
 import { MessageModule } from './message/message.module';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 
+import { AppController } from './app.controller';
+
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -28,6 +30,7 @@ import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
     AnalyticsModule,
     MessageModule,
   ],
+  controllers: [AppController],
   providers: [
     {
       provide: APP_GUARD,

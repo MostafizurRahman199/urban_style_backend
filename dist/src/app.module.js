@@ -20,6 +20,7 @@ const order_module_1 = require("./order/order.module");
 const analytics_module_1 = require("./analytics/analytics.module");
 const message_module_1 = require("./message/message.module");
 const jwt_auth_guard_1 = require("./common/guards/jwt-auth.guard");
+const app_controller_1 = require("./app.controller");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -40,6 +41,7 @@ exports.AppModule = AppModule = __decorate([
             analytics_module_1.AnalyticsModule,
             message_module_1.MessageModule,
         ],
+        controllers: [app_controller_1.AppController],
         providers: [
             {
                 provide: core_1.APP_GUARD,
